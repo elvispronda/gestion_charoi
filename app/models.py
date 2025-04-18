@@ -34,8 +34,8 @@ class Vote(Base):
 
 
 #########################################################################################################################################
-class BudgetEntry(Base):
-    __tablename__ = "budget_entries"
+class Budget(Base):
+    __tablename__ = "budget"
 
     id = Column(Integer, primary_key=True, index=True)
     category = Column(String, nullable=False)  # e.g., fuel, maintenance, insurance
@@ -45,8 +45,8 @@ class BudgetEntry(Base):
     vehicle_id = Column(Integer, ForeignKey("vehicles.id"), nullable=False)
 
 #########################################################################################################################################
-class FuelLog(Base):
-    __tablename__ = "fuel_logs"
+class Fuel(Base):
+    __tablename__ = "fuel"
     id = Column(Integer, primary_key=True, index=True)
     vehicle_id = Column(Integer, ForeignKey("vehicles.id"))
     quantity = Column(Float, nullable=False)
@@ -85,16 +85,7 @@ class Trip(Base):
     driver_id = Column(Integer, ForeignKey("users.id"))
 
 #########################################################################################################################################
-class User(Base):
-    __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, unique=True, index=True, nullable=False)
-    full_name = Column(String, nullable=False)
-    email = Column(String, unique=True, index=True, nullable=False)
-    hashed_password = Column(String, nullable=False)
-    role = Column(String, default="driver")  # driver, admin
-#########################################################################################################################################
 class Vehicle(Base):
     __tablename__ = "vehicles"
 
