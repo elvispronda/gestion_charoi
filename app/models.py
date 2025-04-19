@@ -138,6 +138,7 @@ class Panne():
     vehicle_id=(Integer, ForeignKey("vehicles.id"))
     category_panne_id=Column(Integer, ForeignKey("category_panne.id"))
     description=Column(String,nullable=False)
+    status=Column(String,default="active") #Active,Repaired
     panne_date=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))   
 #########################################################################################################################################
 
@@ -148,5 +149,6 @@ class Reparation():
     cost=Column(Float,default=0.00)
     receipt=Column(String,nullable=False)
     garage_id=Column(Integer,ForeignKey("garage.id"))
-    repair_date=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()')) 
+    repair_date=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
+    status=Column(String,default="In progress ...") #In progress....,Completed
 ##########################################################################################################################################
