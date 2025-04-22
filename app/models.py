@@ -52,15 +52,6 @@ class Fuel(Base):
     quantity = Column(Float, nullable=False)
     cost = Column(Float, nullable=False)
     date = Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
- #########################################################################################################################################
-
-class Maintenance(Base):
-    __tablename__="maintenances"
-    id =Column(Integer, primary_key=True, index=True)
-    vehicle_id =Column(Integer, ForeignKey("vehicles.id"), nullable=False)
-    description =Column(String, nullable=False)
-    cost =Column(Float, nullable=False)
-    maintenance_date =Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
 #########################################################################################################################################
 
 class Trip(Base):
