@@ -332,13 +332,15 @@ class Out():
         orm_mode = True
 #########################################################################################################################################
 
-class Base(BaseModel):
-   vehicle_model:str
+class PanneBase(BaseModel):
+   vehicle_id:int
+   category_panne_id:int
+   description: str | None = None
 
-class Create():
+class PanneCreate(PanneBase):
     pass
 
-class Out():
+class PanneOut(PanneBase):
     id: int
 
     class Config:
