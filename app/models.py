@@ -125,10 +125,11 @@ class CategoryDocument():
 class DocumentVehicule():
     __tablename__="document_vehicule"
     id =Column(Integer,primary_key=True, index=True)
-    category_id=Column(Integer,ForeignKey("category_document.id"))
+    doc_category_id=Column(Integer,ForeignKey("category_document.id"))
     vehicule_id=Column(Integer,ForeignKey("vehicles.id"))
     issued_date=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
     expiration_date=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
+    Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
 #########################################################################################################################################
 
 class Garage():
@@ -140,7 +141,7 @@ class Garage():
 class CategoryMaintenance():
     __tablename__="category_maintenance"
     id=Column(Integer,primary_key=True, index=True)
-    maint_category=Column(String, nullable=False)
+    cat_maintenance=Column(String, nullable=False)
 #########################################################################################################################################
 
 class Maintenance():
@@ -151,7 +152,8 @@ class Maintenance():
     garage_id=Column(Integer,ForeignKey("garage.id"))
     maintenance_cost=Column(Float, default=0.0)
     receipt=Column(String,nullable=False)
-    maintenance_date=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))   
+    maintenance_date=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))  
+    created_at=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))  
 #########################################################################################################################################
 
 class CategoryPanne():
