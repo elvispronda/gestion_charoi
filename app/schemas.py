@@ -163,26 +163,71 @@ class TripOut(TripBase):
 #     password: str
 
 #########################################################################################################################################
-class VehicleBase(BaseModel):
-    make: str
-    model: str
-    year: int
-    plate_number: str
-    mileage: float = 0.0
-    status: str = "available"
+class VehicleTransmissionBase(BaseModel):
+    vehicle_transmission:str
 
-class VehicleCreate(VehicleBase):
+class VehicleTransmissionCreate(VehicleTransmissionBase):
     pass
 
-class VehicleOut(VehicleBase):
+class VehicleTransmissionOut(VehicleTransmissionBase):
     id: int
 
     class Config:
         orm_mode = True
-
-
-
 #########################################################################################################################################
+
+class VehicleFuelTypeBase(BaseModel):
+   fuel_type:str
+
+class VehicleFuelTypeCreate(VehicleFuelTypeBase):
+    pass
+
+class VehicleFuelTypeOut(VehicleFuelTypeBase):
+    id: int
+
+    class Config:
+        orm_mode = True
+#########################################################################################################################################
+
+class VehicleTypeBase(BaseModel):
+   vehicle_type:str
+
+class VehicleTypeCreate(VehicleTypeBase):
+    pass
+
+class VehicleTypeOut(VehicleTypeBase):
+    id: int
+
+    class Config:
+        orm_mode = True
+#########################################################################################################################################
+
+class VehicleMakeBase(BaseModel):
+    vehicle_make:str
+
+class VehicleMakeCreate(VehicleMakeBase):
+    pass
+
+class VehicleMakeOut(VehicleMakeBase):
+    id: int
+
+    class Config:
+        orm_mode = True
+#########################################################################################################################################
+
+class VehicleModelBase(BaseModel):
+   vehicle_model:str
+
+class VehicleModelCreate():
+    pass
+
+class VehicleModelOut():
+    id: int
+
+    class Config:
+        orm_mode = True
+#########################################################################################################################################
+
 class VehicleBase(BaseModel):
     make: str
     model: str
