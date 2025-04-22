@@ -102,27 +102,6 @@ class FuelLogOut(FuelBase):
 
     class Config:
         orm_mode = True
-
-#########################################################################################################################################
-
-class MaintenanceBase(BaseModel):
-    category_maintenance_id: int
-    vehicule_id: int
-    garage_id: int
-    maintenance_cost: float
-    # description: str | None = None
-    receipt: str
-    
-
-class MaintenanceCreate(MaintenanceBase):
-    pass
-
-class MaintenanceOut(MaintenanceBase):
-    id: int
-    maintenance_date: date
-
-    class Config:
-        orm_mode = True
 #########################################################################################################################################
 
 class TripBase(BaseModel):
