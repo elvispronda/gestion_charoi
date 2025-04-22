@@ -233,26 +233,30 @@ class VehicleOut(VehicleBase):
     class Config:
         orm_mode = True
 #########################################################################################################################################
-class Base(BaseModel):
-   vehicle_model:str
-
-class Create():
+class DocumentVehiculeBase(BaseModel):
+   doc_category_id: int
+   vehicle_id:int
+   issued_date:datetime
+   expiration_date:datetime
+   
+class DocumentVehiculeCreate(DocumentVehiculeBase):
     pass
 
-class Out():
+class DocumentVehiculeOut(DocumentVehiculeBase):
     id: int
+    created_at:datetime
 
     class Config:
         orm_mode = True
 #########################################################################################################################################
 
-class Base(BaseModel):
-   vehicle_model:str
+class GarageBase(BaseModel):
+   nom_garage:str
 
-class Create():
+class GarageCreate(GarageBase):
     pass
 
-class Out():
+class GarageOut(GarageBase):
     id: int
 
     class Config:
