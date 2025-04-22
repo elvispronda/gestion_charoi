@@ -167,7 +167,8 @@ class Panne():
     category_panne_id=Column(Integer, ForeignKey("category_panne.id"))
     description=Column(String,nullable=False)
     status=Column(String,default="active") #Active,Repaired
-    panne_date=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))   
+    panne_date=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))  
+    created_at=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()')) 
 #########################################################################################################################################
 
 class Reparation():
