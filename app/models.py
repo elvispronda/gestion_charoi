@@ -104,8 +104,11 @@ class Vehicle(Base):
     plate_number =Column(String, unique=True, nullable=False)
     mileage =Column(Float, default=0.0)
     engine_size=Column(Float, default=0.00)
+    vehicle_type=Column(Integer,ForeignKey("vehicle_type.id"))
     vehicle_transmission=Column(Integer,ForeignKey("vehicle_transmission.id"))
     vehicle_fuel_type=Column(Integer,ForeignKey("vehicle_fuel_type.id"))
+    vin=Column(String,nullable=False) ## Vehicle Identification Number Unique)
+    color=Column(String,nullable=False)
     purchase_price =Column(Float, default=0.00)
     purchase_date=Column(Float, default=0.00)
     status =Column(String, default="available")  # available, in_use, Under_maintenance 
