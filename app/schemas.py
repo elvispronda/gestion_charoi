@@ -143,24 +143,24 @@ class TripOut(TripBase):
         orm_mode = True
 
 #########################################################################################################################################
-class UserBase(BaseModel):
-    username: str
-    full_name: str
-    email: EmailStr
+# class UserBase(BaseModel):
+#     username: str
+#     full_name: str
+#     email: EmailStr
 
-class UserCreate(UserBase):
-    password: str
+# class UserCreate(UserBase):
+#     password: str
 
-class UserOut(UserBase):
-    id: int
-    role: str
+# class UserOut(UserBase):
+#     id: int
+#     role: str
 
-    class Config:
-        orm_mode = True
+#     class Config:
+#         orm_mode = True
 
-class UserLogin(BaseModel):
-    username: str
-    password: str
+# class UserLogin(BaseModel):
+#     username: str
+#     password: str
 
 #########################################################################################################################################
 class VehicleBase(BaseModel):
