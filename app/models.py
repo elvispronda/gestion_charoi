@@ -64,18 +64,36 @@ class Trip(Base):
     vehicle_id =Column(Integer, ForeignKey("vehicles.id"))
     driver_id =Column(Integer, ForeignKey("users.id"))
 #########################################################################################################################################
+class VehicleType(Base):
+    __tablename__="vehicle_type"
+    id=Column(Integer, primary_key=True, index=True)
+    vehicle_type=Column(String, nullable=False)
+#########################################################################################################################################
 
+class VehicleMake(Base):
+    __tablename__="vehicle_make"
+    id=Column(Integer, primary_key=True, index=True)
+    vehicle_make=Column(String, nullable=False)
+#########################################################################################################################################
+
+class vehicleModel(Base):
+    __tablename__="vehicle_model"
+    id=Column(Integer, primary_key=True, index=True)
+    vehicle_model=Column(String, nullable=False)
+#########################################################################################################################################
 class Vehicle(Base):
     __tablename__= "vehicles"
     id =Column(Integer, primary_key=True, index=True)
-    make =Column(String, nullable=False)
-    model =Column(String, nullable=False)
+    make =Column(Integer,ForeignKey("vehicle_make.id"))
+    model =Column(Integer,ForeignKey("vehicle_model.id"))
     year =Column(Integer)
     plate_number =Column(String, unique=True, nullable=False)
     mileage =Column(Float, default=0.0)
-    cost =Column(Float, default=0.0)
-    status =Column(String, default="available")  # available, in_use, maintenance 
-    starting_date=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
+    engine_size=Column(Float, default=0.00)
+    purchase_price =Column(Float, default=0.00)
+    purchase_date=Column(Float, default=0.00)
+    status =Column(String, default="available")  # available, in_use, Under_maintenance 
+    registration_date=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
 #########################################################################################################################################
 
 class CategoryDocument():
