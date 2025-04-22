@@ -233,6 +233,21 @@ class VehicleOut(VehicleBase):
     class Config:
         orm_mode = True
 #########################################################################################################################################
+
+class CategoryDocumentBase(BaseModel):
+   doc_name:str
+   cost:float
+   
+class DocumentVehiculeCreate(CategoryDocumentBase):
+    pass
+
+class DocumentVehiculeOut(CategoryDocumentBase):
+    id: int
+
+    class Config:
+        orm_mode = True
+#########################################################################################################################################
+
 class DocumentVehiculeBase(BaseModel):
    doc_category_id: int
    vehicle_id:int
