@@ -118,7 +118,7 @@ class Vehicle(Base):
 class CategoryDocument():
     __tablename__="category_document"
     id=Column(Integer,primary_key=True, index=True)
-    doc_category=Column(String, nullable=False)
+    doc_name=Column(String, nullable=False)
     cost=Column(Float, default=0.0)
 #########################################################################################################################################
 
