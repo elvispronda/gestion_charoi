@@ -52,65 +52,53 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     id: Union[str, int]  # Accepts both string and integer types
+#########################################################################################################################################
 
-
-
-# class Vote(BaseModel):
-#     post_id : int
-#     dir : conint(le=1) # type: ignore
-
-
-
-
-
-
-
-
-class BudgetBase(BaseModel):
-    category: str
-    amount: float
-    date: date
-    description: str | None = None
-    vehicle_id: int
-
-class BudgetCreate(BudgetBase):
+class DriverBase(BaseModel):
+    nom: str
+    prenom: str
+    cni: str
+    email: str
+    matricule:str
+   
+class BudgetCreate(DriverBase):
     pass
 
-class BudgetOut(BudgetBase):
+class BudgetOut(DriverBase):
     id: int
+    created_at: datetime
 
     class Config:
         orm_mode = True
 #########################################################################################################################################
-class FuelLogBase(BaseModel):
-    vehicle_id: int
-    quantity: float
-    cost: float
+class CategoryFuelBase(BaseModel):
+    fuel_category: str
+    
 
-class FuelLogCreate(FuelLogBase):
+class CategoryFuelCreate(CategoryFuelBase):
     pass
 
-class FuelLogOut(FuelLogBase):
+class FuelLogOut(CategoryFuelBase):
     id: int
-    date: datetime
+    created_at: datetime
 
     class Config:
         orm_mode = True
 
 #########################################################################################################################################
 
-class FuelLogBase(BaseModel):
+class FuelBase(BaseModel):
     vehicle_id: int
-    date: date
-    fuel_type: str
-    volume: float
+    category_fuel_id: int
+    quantity:float
     cost: float
 
-class FuelLogCreate(FuelLogBase):
+class FuelLogCreate(FuelBase):
     pass
 
-class FuelLogOut(FuelLogBase):
+class FuelLogOut(FuelBase):
     id: int
+    created_at: datetime
 
     class Config:
         orm_mode = True
@@ -118,20 +106,25 @@ class FuelLogOut(FuelLogBase):
 #########################################################################################################################################
 
 class MaintenanceBase(BaseModel):
-    vehicle_id: int
-    description: str
-    cost: float
-    maintenance_date: date
+    category_maintenance_id: int
+    vehicule_id: int
+    garage_id: int
+    maintenance_cost: float
+    # description: str | None = None
+    receipt: str
+    
 
 class MaintenanceCreate(MaintenanceBase):
     pass
 
 class MaintenanceOut(MaintenanceBase):
     id: int
+    maintenance_date: date
 
     class Config:
         orm_mode = True
 #########################################################################################################################################
+
 class TripBase(BaseModel):
     origin: str
     destination: str

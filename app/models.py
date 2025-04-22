@@ -31,27 +31,27 @@ class Driver(Base):
     id =Column(Integer,primary_key=True, nullable=False)
     nom =Column(String,nullable=False)
     prenom =Column(String, nullable=False)
-    adresse =Column(String,nullable=False)
     cni=Column(String, nullable=False, unique=True)
-    telephone =Column(String, nullable=False, unique=True)
     email =Column(String, nullable=False, unique=True)
     matricule =Column(String, nullable=False, unique=True)
+    created_at=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
 #########################################################################################################################################
 
 class CategoryFuel():
     __tablename__="category_fuel"
     id=Column(Integer,primary_key=True,index=True)
     fuel_category=Column(String,nullable=False) # e.g., fuel: Mzzout or essance
+    created_at=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
 #########################################################################################################################################
 
 class Fuel(Base):
     __tablename__ = "fuel"
     id = Column(Integer, primary_key=True, index=True)
     vehicle_id = Column(Integer, ForeignKey("vehicles.id"))
-    category_fuel = Column(Integer,ForeignKey("category_fuel.id")) 
+    category_fuel_id = Column(Integer,ForeignKey("category_fuel.id")) 
     quantity = Column(Float, nullable=False)
     cost = Column(Float, nullable=False)
-    date = Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
+    created_at = Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
 #########################################################################################################################################
 
 class Trip(Base):
