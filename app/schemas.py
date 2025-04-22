@@ -229,11 +229,19 @@ class VehicleModelOut():
 #########################################################################################################################################
 
 class VehicleBase(BaseModel):
-    make: str
-    model: str
+    make: int
+    model: int
     year: int
     plate_number: str
     mileage: float = 0.0
+    engine_size: float
+    vehicle_type:int
+    vehicle_transmission:int
+    vehicle_fuel_type:int
+    vin:str
+    color:str
+    purchase_price:float
+    purchase_date:datetime
     status: str = "available"
 
 class VehicleCreate(VehicleBase):
@@ -241,6 +249,7 @@ class VehicleCreate(VehicleBase):
 
 class VehicleOut(VehicleBase):
     id: int
+    registration_date:datetime
 
     class Config:
         orm_mode = True
