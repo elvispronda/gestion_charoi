@@ -260,7 +260,7 @@ class Out():
 #########################################################################################################################################
 
 class CategoryMaintenanceBase(BaseModel):
-   vehicle_model:str
+   cat_maintenance:str
 
 class CategoryMaintenanceCreate(CategoryMaintenanceBase):
     pass
