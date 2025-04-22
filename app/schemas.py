@@ -293,14 +293,20 @@ class Out():
         orm_mode = True
 #########################################################################################################################################
 
-class Base(BaseModel):
-   vehicle_model:str
+class MaintenanceBase(BaseModel):
+   category_maintenance_id: int
+   vehicule_id:int
+   garage_id:int
+   maintenance_cost:float
+   receipt:str
+   maintenance_date:datetime
 
-class Create():
+class MaintenanceCreate(MaintenanceBase):
     pass
 
-class Out():
+class MaintenanceOut(MaintenanceBase):
     id: int
+    created_at:datetime
 
     class Config:
         orm_mode = True
@@ -319,13 +325,13 @@ class Out():
         orm_mode = True
 #########################################################################################################################################
 
-class Base(BaseModel):
-   vehicle_model:str
+class CategoryPanneBase(BaseModel):
+   nom_panne: str
 
-class Create():
+class CategoryPanneCreate(CategoryPanneBase):
     pass
 
-class Out():
+class CategoryPanneOut(CategoryPanneBase):
     id: int
 
     class Config:
