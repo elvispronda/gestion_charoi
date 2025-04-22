@@ -336,12 +336,16 @@ class PanneBase(BaseModel):
    vehicle_id:int
    category_panne_id:int
    description: str | None = None
-
+   status: str
+   panne_date:datetime
+   
 class PanneCreate(PanneBase):
     pass
 
 class PanneOut(PanneBase):
     id: int
+    created_at:datetime
+
 
     class Config:
         orm_mode = True
