@@ -111,7 +111,7 @@ class Vehicle(Base):
     color=Column(String,nullable=False)
     purchase_price =Column(Float, default=0.00)
     purchase_date=Column(Float, default=0.00)
-    status =Column(String, default="available")  # available, in_use, Under_maintenance 
+    status =Column(String, default="available")  # available, In_use, Under_maintenance 
     registration_date=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
 #########################################################################################################################################
 
