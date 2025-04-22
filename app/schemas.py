@@ -267,3 +267,98 @@ class Out():
         orm_mode = True
 #########################################################################################################################################
 
+class Base(BaseModel):
+   vehicle_model:str
+
+class Create():
+    pass
+
+class Out():
+    id: int
+
+    class Config:
+        orm_mode = True
+#########################################################################################################################################
+
+class Base(BaseModel):
+   vehicle_model:str
+
+class Create():
+    pass
+
+class Out():
+    id: int
+
+    class Config:
+        orm_mode = True
+#########################################################################################################################################
+
+class Base(BaseModel):
+   vehicle_model:str
+
+class Create():
+    pass
+
+class Out():
+    id: int
+
+    class Config:
+        orm_mode = True
+#########################################################################################################################################
+
+class Base(BaseModel):
+   vehicle_model:str
+
+class Create():
+    pass
+
+class Out():
+    id: int
+
+    class Config:
+        orm_mode = True
+#########################################################################################################################################
+
+class Base(BaseModel):
+   vehicle_model:str
+
+class Create():
+    pass
+
+class Out():
+    id: int
+
+    class Config:
+        orm_mode = True
+#########################################################################################################################################
+
+class Base(BaseModel):
+   vehicle_model:str
+
+class Create():
+    pass
+
+class Out():
+    id: int
+
+    class Config:
+        orm_mode = True
+#########################################################################################################################################
+
+class ReparationBase(BaseModel):
+   panne_id: int
+   cost: float
+   receipt:str
+   garage_id: int
+   repair_date:datetime
+
+class ReparationCreate(ReparationBase):
+    pass
+
+class ReparationOut(ReparationBase):
+    id: int
+
+    class Config:
+        orm_mode = True
+#########################################################################################################################################
+
