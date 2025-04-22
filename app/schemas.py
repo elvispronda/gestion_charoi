@@ -259,13 +259,13 @@ class Out():
         orm_mode = True
 #########################################################################################################################################
 
-class Base(BaseModel):
+class CategoryMaintenanceBase(BaseModel):
    vehicle_model:str
 
-class Create():
+class CategoryMaintenanceCreate(CategoryMaintenanceBase):
     pass
 
-class Out():
+class CategoryMaintenanceOut(CategoryMaintenanceBase):
     id: int
 
     class Config:
