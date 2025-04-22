@@ -64,23 +64,37 @@ class Trip(Base):
     vehicle_id =Column(Integer, ForeignKey("vehicles.id"))
     driver_id =Column(Integer, ForeignKey("users.id"))
 #########################################################################################################################################
+
+class VehicleFuelType(Base):
+    __tablename__="vehicle_fuel_type"
+    id=Column(Integer, primary_key=True, index=True)
+    fuel_type=Column(String, nullable=False) ## Fuel_Type: Mazzout, Essence,Electric, Hybrid
+#########################################################################################################################################
+
 class VehicleType(Base):
     __tablename__="vehicle_type"
     id=Column(Integer, primary_key=True, index=True)
-    vehicle_type=Column(String, nullable=False)
+    vehicle_type=Column(String, nullable=False)   ## Vehicle Type: Sedon, Truck, SUV,Motor...
 #########################################################################################################################################
 
 class VehicleMake(Base):
     __tablename__="vehicle_make"
     id=Column(Integer, primary_key=True, index=True)
-    vehicle_make=Column(String, nullable=False)
+    vehicle_make=Column(String, nullable=False) ##Vehicle Make: TOYOTA,....
 #########################################################################################################################################
 
 class vehicleModel(Base):
     __tablename__="vehicle_model"
     id=Column(Integer, primary_key=True, index=True)
-    vehicle_model=Column(String, nullable=False)
+    vehicle_model=Column(String, nullable=False) ## Vehicle Model: Corolla , F15
 #########################################################################################################################################
+
+class VehicleTransmission(Base):
+    __tablename__="vehicle_transmission"
+    id=Column(Integer, primary_key=True, index=True)
+    vehicle_transmission=Column(String, nullable=False) ## Vehicle Transmission: Manual, Automatic
+#########################################################################################################################################
+
 class Vehicle(Base):
     __tablename__= "vehicles"
     id =Column(Integer, primary_key=True, index=True)
@@ -90,6 +104,8 @@ class Vehicle(Base):
     plate_number =Column(String, unique=True, nullable=False)
     mileage =Column(Float, default=0.0)
     engine_size=Column(Float, default=0.00)
+    vehicle_transmission=Column(Integer,ForeignKey("vehicle_transmission.id"))
+    vehicle_fuel_type=Column(Integer,ForeignKey("vehicle_fuel_type.id"))
     purchase_price =Column(Float, default=0.00)
     purchase_date=Column(Float, default=0.00)
     status =Column(String, default="available")  # available, in_use, Under_maintenance 
