@@ -5,7 +5,7 @@
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
 #Define a default commit message
-COMMIT_MESSAGE="Auto Commit - $(date+'%Y-%m-%d  %H:%M:%S')"
+COMMIT_MESSAGE="Auto Commit - $(date "+%Y-%m-%d %H:%M:%S")"
 
 echo "Checking Status......"
 git status
