@@ -4,15 +4,10 @@ from datetime import datetime
 from typing import Optional, Union
 from datetime import date
 
-   
-class PostBase(BaseModel):
-    title : str
-    content : str
-    published : bool = True
-    
-
-class PostCreate(PostBase):
-    pass
+###################################################################################################################
+class UserCreate(BaseModel):
+    email : EmailStr
+    password : str
 
 class Userout(BaseModel):
     id : int
@@ -20,26 +15,7 @@ class Userout(BaseModel):
     created_at : datetime
     
     class config :
-        orm_mode = True
-        
-        
-class Post(PostBase):
-    id : int
-    created_at : datetime
-    owner_id : int
-    owner : Userout
-    
-    class config :
-        orm_mode = True
-        
-class PostOut(PostBase):
-    Post : Post
-    votes : int    
-
-class UserCreate(BaseModel):
-    email : EmailStr
-    password : str
-    
+        orm_mode = True            
        
 class UserLogin(BaseModel):
     email : EmailStr
