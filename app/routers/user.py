@@ -62,7 +62,10 @@ def delete_user(id:int,db:Session = Depends(get_db), current_user : str = Depend
 
 @router.put("/{id}", response_model=schemas.UserCreate)
 def update_user(id:int,updated_user:schemas.UserCreate,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
-   
+    
+    # Hash the password   _ user.password
+    hashed_password = utils.hash(user.password)
+    user.password = hashed_password
     user_query = db.query(models.User).filter(models.User.id == id)
     user =user_query.first()
     if user == None:
