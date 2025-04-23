@@ -19,7 +19,7 @@ class UserOut(UserBase):
     created_at : datetime
     
     class config :
-        orm_mode = True   
+        from_attributes = True   
 
 class UserCreate(UserBase):
     pass
@@ -53,7 +53,7 @@ class BudgetOut(DriverBase):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 ##################################################################################################################
 
 class CategoryFuelBase(BaseModel):
@@ -68,7 +68,7 @@ class CategoryFuelOut(CategoryFuelBase):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 #################################################################################################################
 
@@ -86,7 +86,7 @@ class FuelOut(FuelBase):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 #################################################################################################################
 
 class TripBase(BaseModel):
@@ -104,7 +104,7 @@ class TripOut(TripBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 ##################################################################################################################
 # class UserBase(BaseModel):
@@ -137,7 +137,7 @@ class VehicleTransmissionOut(VehicleTransmissionBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 ##################################################################################################################
 
 class VehicleFuelTypeBase(BaseModel):
@@ -150,7 +150,7 @@ class VehicleFuelTypeOut(VehicleFuelTypeBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 ##################################################################################################################
 
 class VehicleTypeBase(BaseModel):
@@ -163,7 +163,7 @@ class VehicleTypeOut(VehicleTypeBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 ###################################################################################################################
 
 class VehicleMakeBase(BaseModel):
@@ -176,7 +176,7 @@ class VehicleMakeOut(VehicleMakeBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 ###################################################################################################################
 
 class VehicleModelBase(BaseModel):
@@ -189,7 +189,7 @@ class VehicleModelOut():
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 ####################################################################################################################
 
 class VehicleBase(BaseModel):
@@ -216,7 +216,7 @@ class VehicleOut(VehicleBase):
     registration_date:datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 ####################################################################################################################
 
 class CategoryDocumentBase(BaseModel):
@@ -230,7 +230,7 @@ class DocumentVehiculeOut(CategoryDocumentBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 #####################################################################################################################
 
 class DocumentVehiculeBase(BaseModel):
@@ -247,7 +247,7 @@ class DocumentVehiculeOut(DocumentVehiculeBase):
     created_at:datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 ######################################################################################################################
 
 class GarageBase(BaseModel):
@@ -260,7 +260,7 @@ class GarageOut(GarageBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 #####################################################################################################################
 
 class CategoryMaintenanceBase(BaseModel):
@@ -273,7 +273,7 @@ class CategoryMaintenanceOut(CategoryMaintenanceBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 #####################################################################################################################
 
 class MaintenanceBase(BaseModel):
@@ -292,7 +292,7 @@ class MaintenanceOut(MaintenanceBase):
     created_at:datetime
 
     class Config:
-        orm_mode = True
+       from_attributes = True
 #####################################################################################################################
 
 class Base(BaseModel):
@@ -305,7 +305,7 @@ class Out():
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 ######################################################################################################################
 
 class CategoryPanneBase(BaseModel):
@@ -318,7 +318,7 @@ class CategoryPanneOut(CategoryPanneBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 #######################################################################################################################
 
 class PanneBase(BaseModel):
@@ -338,7 +338,7 @@ class PanneOut(PanneBase):
 
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 ########################################################################################################################
 
 class ReparationBase(BaseModel):
@@ -356,6 +356,6 @@ class ReparationOut(ReparationBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 #########################################################################################################################
 
