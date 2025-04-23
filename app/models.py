@@ -40,7 +40,7 @@ class Fuel(Base):
     __tablename__ = "fuel"
     id = Column(Integer, primary_key=True, index=True)
     vehicle_id = Column(Integer, ForeignKey("vehicles.id"))
-    category_fuel_id = Column(Integer,ForeignKey("category_fuel.id")) 
+    fuel_category_id = Column(Integer,ForeignKey("category_fuel.id")) 
     quantity = Column(Float, nullable=False)
     cost = Column(Float, nullable=False)
     created_at = Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
