@@ -30,13 +30,13 @@ def get_caat_maintenance(db:Session = Depends(get_db), current_user : str = Depe
     return maintenance_categories
 ############################################################################################################################
 
-@router.get("/{id}", response_model=schemas.UserOut)
-def get_user(id : int, db :Session = Depends(get_db),  current_user : str = Depends(oauth2.get_current_user)):
-    user = db.query(models.User).filter(models.User.id == id).first()
+@router.get("/{id}", response_model=schemas.CategoryMaintenanceOut)
+def get_cat_maintenance(id : int, db :Session = Depends(get_db),  current_user : str = Depends(oauth2.get_current_user)):
+    cat_maintenance = db.query(models.CategoryMaintenance).filter(models.CategoryMaintenance.id == id).first()
     
-    if not user :
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"user with id : {id} was not found")
-    return user
+    if not cat_maintenance :
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Maintenance category with id : {id} was not found")
+    return cat_maintenance
 
 #############################################################################################################################
 
