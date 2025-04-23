@@ -14,7 +14,26 @@ app = FastAPI(debug=True)
     
 app.include_router(user.router)
 app.include_router(auth.router)
-
+app.include_router(user.router)
+app.include_router(auth.router)
+app.include_router(user.router)
+app.include_router(auth.router)
+app.include_router(user.router)
+app.include_router(auth.router)
+app.include_router(user.router)
+app.include_router(auth.router)
+app.include_router(user.router)
+app.include_router(auth.router)
+app.include_router(user.router)
+app.include_router(auth.router)
+app.include_router(user.router)
+app.include_router(auth.router)
+app.include_router(user.router)
+app.include_router(auth.router)
+app.include_router(user.router)
+app.include_router(auth.router)
+app.include_router(user.router)
+app.include_router(auth.router)
 
 #show all cars that have been in pannes for more than 10 days
 #CV for each car:
