@@ -9,7 +9,7 @@ from ..database import  get_db
 router = APIRouter(prefix="/user", tags=['User'])
 
 ############################################################################################################################
-@router.post("/",status_code=status.HTTP_201_CREATED, response_model=schemas.Userout) 
+@router.post("/",status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut) 
 def create_user(user : schemas.UserCreate, db:Session = Depends(get_db)):
     
     # Hash the password   _ user.password
@@ -34,7 +34,7 @@ def get_posts(db:Session = Depends(get_db), current_user : str = Depends(oauth2.
     return users 
 ############################################################################################################################
 
-@router.get("/{id}", response_model=schemas.Userout)
+@router.get("/{id}", response_model=schemas.UserOut)
 def get_user(id : int, db :Session = Depends(get_db),  current_user : str = Depends(oauth2.get_current_user)):
     user = db.query(models.User).filter(models.User.id == id).first()
     
@@ -60,7 +60,7 @@ def delete_user(id:int,db:Session = Depends(get_db), current_user : str = Depend
    return Response(status_code=status.HTTP_204_NO_CONTENT)
 ############################################################################################################################
 
-@router.put("/{id}", response_model=schemas.Post)
+@router.put("/{id}", response_model=schemas.UserCreate)
 def update_user(id:int,updated_user:schemas.UserCreate,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
    
     user_query = db.query(models.User).filter(models.User.id == id)
