@@ -133,7 +133,7 @@ class CategoryMaintenance():
 class Maintenance():
     __tablename__="maintenance"
     id =Column(Integer,primary_key=True, index=True)
-    category_maintenance_id=Column(Integer,ForeignKey("category_maintenance.id"))
+    cat_maintenance_id=Column(Integer,ForeignKey("category_maintenance.id"))
     vehicule_id=Column(Integer,ForeignKey("vehicles.id"))
     garage_id=Column(Integer,ForeignKey("garage.id"))
     maintenance_cost=Column(Float, default=0.0)
