@@ -19,7 +19,7 @@ class User(Base):
 #########################################################################################################################################
 
 class Driver(Base):
-    __table__="drivers"
+    __tablename__="drivers"
     id =Column(Integer,primary_key=True, nullable=False)
     nom =Column(String,nullable=False)
     prenom =Column(String, nullable=False)
