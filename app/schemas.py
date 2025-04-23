@@ -323,7 +323,7 @@ class CategoryPanneOut(CategoryPanneBase):
 
 class PanneBase(BaseModel):
    vehicle_id:int
-   category_panne_id:int
+   nom_panne_id:int
    #description: str | None = None
    description: Optional[str] = None
    status: str
