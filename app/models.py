@@ -29,21 +29,21 @@ class Driver(Base):
     created_at=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
 #########################################################################################################################################
 
-class CategoryFuel():
-    __tablename__="category_fuel"
-    id=Column(Integer,primary_key=True,index=True)
-    fuel_name=Column(String,nullable=False) # e.g., fuel: Mzzout or essance
+class VehicleFuelType(Base):
+    __tablename__="vehicle_fuel_type"
+    id=Column(Integer, primary_key=True, index=True)
+    fuel_type=Column(String, nullable=False) ## Fuel_Type: Mazzout, Essence,Electric, Hybrid
     created_at=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
 #########################################################################################################################################
 
-# class Fuel(Base):
-#     __tablename__ = "fuel"
-#     id = Column(Integer, primary_key=True, index=True)
-#     vehicle_id = Column(Integer, ForeignKey("vehicles.id",ondelete="CASCADE"),nullable = False)
-#     fuel_name_cat_id = Column(Integer, ForeignKey("category_fuel.id", ondelete="CASCADE"),nullable = False)
-#     quantity = Column(Float, nullable=False)
-#     cost = Column(Float, nullable=False)
-#     created_at = Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
+class Fuel(Base):
+    __tablename__ = "fuel"
+    id = Column(Integer, primary_key=True, index=True)
+    vehicle_id = Column(Integer, ForeignKey("vehicles.id",ondelete="CASCADE"),nullable = False)
+    fuel_name_cat_id = Column(Integer, ForeignKey("vehicle_fuel_type.id", ondelete="CASCADE"),nullable = False)
+    quantity = Column(Float, nullable=False)
+    cost = Column(Float, nullable=False)
+    created_at = Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
 #########################################################################################################################################
 
 class Trip(Base):
@@ -55,13 +55,6 @@ class Trip(Base):
     return_date =Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
     vehicle_id =Column(Integer, ForeignKey("vehicles.id"))
     driver_id =Column(Integer, ForeignKey("users.id"))
-#########################################################################################################################################
-
-class VehicleFuelType(Base):
-    __tablename__="vehicle_fuel_type"
-    id=Column(Integer, primary_key=True, index=True)
-    fuel_type=Column(String, nullable=False) ## Fuel_Type: Mazzout, Essence,Electric, Hybrid
-    created_at=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
 #########################################################################################################################################
 
 class VehicleType(Base):
