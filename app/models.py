@@ -9,7 +9,7 @@ from .database import Base
 
 class User(Base):
     __tablename__ ="users"
-    id = Column(Integer,primary_key= True, nullable = False)
+    id = Column(Integer,primary_key= True, index=True)
     username = Column(String, unique=True, nullable=False)
     full_name = Column(String, nullable=False)
     email = Column(String, nullable =False, unique = True)
@@ -20,7 +20,7 @@ class User(Base):
 
 class Driver(Base):
     __tablename__="drivers"
-    id =Column(Integer,primary_key=True, nullable=False)
+    id =Column(Integer,primary_key=True, index=True)
     nom =Column(String,nullable=False)
     prenom =Column(String, nullable=False)
     cni=Column(String, nullable=False, unique=True)
@@ -39,8 +39,8 @@ class CategoryFuel():
 class Fuel(Base):
     __tablename__ = "fuel"
     id = Column(Integer, primary_key=True, index=True)
-    vehicle_id = Column(Integer, ForeignKey("vehicles.id"))
-    fuel_name_cat_id = Column(Integer,ForeignKey("categoryfuel.id")) 
+    vehicle_id = Column(Integer, ForeignKey("vehicles.id",ondelete="CASCADE"),nullable = False)
+    fuel_name_cat_id =Column(Integer, ForeignKey("categoryfuel.id", ondelete="CASCADE"),nullable = False) 
     quantity = Column(Float, nullable=False)
     cost = Column(Float, nullable=False)
     created_at = Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
