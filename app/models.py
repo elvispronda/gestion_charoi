@@ -27,7 +27,7 @@ class Driver(Base):
     email =Column(String, nullable=False, unique=True)
     matricule =Column(String, nullable=False, unique=True)
     created_at=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
-#########################################################################################################################################
+##################################################################################################################################
 
 class VehicleFuelType(Base):
     __tablename__="vehicle_fuel_type"
