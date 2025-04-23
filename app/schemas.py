@@ -195,10 +195,10 @@ class CategoryDocumentBase(BaseModel):
     doc_name: str
     cost: float
 
-class DocumentVehiculeCreate(CategoryDocumentBase):
+class CategoryDocumentCreate(CategoryDocumentBase):
     pass
 
-class DocumentVehiculeOut(CategoryDocumentBase):
+class CategoryDocumentOut(CategoryDocumentBase):
     id: int
 
     class Config:
