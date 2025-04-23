@@ -173,5 +173,5 @@ class Reparation():
     receipt=Column(String,nullable=False)
     garage_id=Column(Integer,ForeignKey("garage.id"))
     repair_date=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
-    status=Column(String,default="In progress ...") #In progress....,Completed
+    status=Column(String,default="Inprogress") #In progress....,Completed
 ##########################################################################################################################################
