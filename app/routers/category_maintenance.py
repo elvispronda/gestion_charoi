@@ -20,14 +20,14 @@ def create_cat_maintenance(cat_maintenance: schemas.CategoryMaintenanceCreate, d
 
 ############################################################################################################################
 
-@router.get("/", response_model = List[schemas.UserOut])
-def get_users(db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user),
+@router.get("/", response_model = List[schemas.CategoryMaintenanceOut])
+def get_caat_maintenance(db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user),
               limit : int = 5, skip : int = 0, search :Optional[str] = ""):
               
   
-    ##filter all users at the same time
-    users = db.query(models.User).filter(models.User.email.contains(search)).limit(limit).offset(skip).all()
-    return users 
+    ##filter all maintenance categories at the same time
+    maintenance_categories = db.query(models.CategoryMaintenance).filter(models.CategoryMaintenance..contains(search)).limit(limit).offset(skip).all()
+    return maintenance_categories
 ############################################################################################################################
 
 @router.get("/{id}", response_model=schemas.UserOut)
