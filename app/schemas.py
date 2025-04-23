@@ -57,7 +57,7 @@ class BudgetOut(DriverBase):
 ##################################################################################################################
 
 class CategoryFuelBase(BaseModel):
-    fuel_category: str
+    fuel_name: str
     
 
 class CategoryFuelCreate(CategoryFuelBase):
