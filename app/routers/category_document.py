@@ -9,8 +9,8 @@ from ..database import  get_db
 router = APIRouter(prefix="/user", tags=['User'])
 
 ############################################################################################################################
-@router.post("/",status_code=status.HTTP_201_CREATED, response_model=schemas.DocumentVehiculeOut) 
-def create_cat_document(cat_document : schemas.UserCreate, db:Session = Depends(get_db)):
+@router.post("/",status_code=status.HTTP_201_CREATED, response_model=schemas.CategoryDocumentOut) 
+def create_cat_document(cat_document : schemas.CategoryDocumentCreate, db:Session = Depends(get_db)):
     
     
     new_cat_document = models.CategoryDocument(**cat_document.dict())
@@ -21,7 +21,7 @@ def create_cat_document(cat_document : schemas.UserCreate, db:Session = Depends(
 
 ############################################################################################################################
 
-@router.get("/", response_model = List[schemas.DocumentVehiculeOut])
+@router.get("/", response_model = List[schemas.CategoryDocumentBase])
 def get_documents(db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user),
               limit : int = 5, skip : int = 0, search :Optional[str] = ""):
               
@@ -31,9 +31,9 @@ def get_documents(db:Session = Depends(get_db), current_user : str = Depends(oau
     return documents
 ############################################################################################################################
 
-@router.get("/{id}", response_model=schemas.UserOut)
-def get_user(id : int, db :Session = Depends(get_db),  current_user : str = Depends(oauth2.get_current_user)):
-    user = db.query(models.User).filter(models.User.id == id).first()
+@router.get("/{id}", response_model=schemas.DocumentVehiculeOut)
+def get_document(id : int, db :Session = Depends(get_db),  current_user : str = Depends(oauth2.get_current_user)):
+    document = db.query(models.CategoryDocument).filter(models.User.id == id).first()
     
     if not user :
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"user with id : {id} was not found")
