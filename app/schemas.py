@@ -277,7 +277,7 @@ class CategoryMaintenanceOut(CategoryMaintenanceBase):
 #####################################################################################################################
 
 class MaintenanceBase(BaseModel):
-   category_maintenance_id: int
+   cat_maintenance_id: int
    vehicule_id:int
    garage_id:int
    maintenance_cost:float
