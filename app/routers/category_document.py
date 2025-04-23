@@ -9,29 +9,26 @@ from ..database import  get_db
 router = APIRouter(prefix="/user", tags=['User'])
 
 ############################################################################################################################
-@router.post("/",status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut) 
-def create_user(user : schemas.UserCreate, db:Session = Depends(get_db)):
+@router.post("/",status_code=status.HTTP_201_CREATED, response_model=schemas.DocumentVehiculeOut) 
+def create_cat_document(cat_document : schemas.UserCreate, db:Session = Depends(get_db)):
     
-    # Hash the password   _ user.password
-    hashed_password = utils.hash(user.password)
-    user.password = hashed_password
     
-    new_user = models.User(**user.dict())
-    db.add(new_user)
+    new_cat_document = models.CategoryDocument(**cat_document.dict())
+    db.add(new_cat_document)
     db.commit()
-    db.refresh(new_user)
-    return new_user
+    db.refresh(new_cat_document)
+    return new_cat_document
 
 ############################################################################################################################
 
-@router.get("/", response_model = List[schemas.UserOut])
-def get_posts(db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user),
+@router.get("/", response_model = List[schemas.DocumentVehiculeOut])
+def get_documents(db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user),
               limit : int = 5, skip : int = 0, search :Optional[str] = ""):
               
   
-    ##filter all users at the same time
-    users = db.query(models.User).filter(models.User.email.contains(search)).limit(limit).offset(skip).all()
-    return users 
+    ##filter all documents at the same time
+    documents = db.query(models.DocumentVehicule).filter(models.DocumentVehicule.doc_name.contains(search)).limit(limit).offset(skip).all()
+    return documents
 ############################################################################################################################
 
 @router.get("/{id}", response_model=schemas.UserOut)
