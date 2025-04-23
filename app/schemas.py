@@ -84,8 +84,8 @@ class FuelLogOut(FuelBase):
 class TripBase(BaseModel):
     origin: str
     destination: str
-    departure_date: date
-    return_date: date | None = None
+    departure_date: datetime
+    return_date: datetime
     vehicle_id: int
     driver_id: int
 
