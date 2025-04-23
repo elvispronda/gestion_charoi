@@ -30,7 +30,7 @@ class Driver(Base):
 #########################################################################################################################################
 
 class CategoryFuel():
-    __tablename__="categoryfuel"
+    __tablename__="category_fuel"
     id=Column(Integer,primary_key=True,index=True)
     fuel_name=Column(String,nullable=False) # e.g., fuel: Mzzout or essance
     created_at=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
@@ -40,7 +40,7 @@ class Fuel(Base):
     __tablename__ = "fuel"
     id = Column(Integer, primary_key=True, index=True)
     vehicle_id = Column(Integer, ForeignKey("vehicles.id",ondelete="CASCADE"),nullable = False)
-    fuel_name_cat_id =Column(Integer, ForeignKey("categoryfuel.id", ondelete="CASCADE"),nullable = False) 
+    fuel_name_cat_id = Column(Integer, ForeignKey("category_fuel.id", ondelete="CASCADE"),nullable = False)
     quantity = Column(Float, nullable=False)
     cost = Column(Float, nullable=False)
     created_at = Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
