@@ -26,7 +26,7 @@ def get_caat_maintenance(db:Session = Depends(get_db), current_user : str = Depe
               
   
     ##filter all maintenance categories at the same time
-    maintenance_categories = db.query(models.CategoryMaintenance).filter(models.CategoryMaintenance..contains(search)).limit(limit).offset(skip).all()
+    maintenance_categories = db.query(models.CategoryMaintenance).filter(models.CategoryMaintenance.cat_maintenance.contains(search)).limit(limit).offset(skip).all()
     return maintenance_categories
 ############################################################################################################################
 
