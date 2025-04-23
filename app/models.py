@@ -167,7 +167,7 @@ class Panne():
 
 class Reparation():
     __tablename__="reparation"
-    id=Column(Integer, ForeignKey=True,index=True)
+    id=Column(Integer, primary_key=True,index=True)
     panne_id=Column(Integer, ForeignKey("panne.id"))
     cost=Column(Float,default=0.00)
     receipt=Column(String,nullable=False)
