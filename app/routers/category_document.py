@@ -6,7 +6,7 @@ from sqlalchemy import func
 from .. import models ,schemas,oauth2,utils
 from ..database import  get_db
 
-router = APIRouter(prefix="/user", tags=['User'])
+router = APIRouter(prefix="/cat_document", tags=['Category Document'])
 
 ############################################################################################################################
 @router.post("/",status_code=status.HTTP_201_CREATED, response_model=schemas.CategoryDocumentOut) 
