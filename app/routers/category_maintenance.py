@@ -41,17 +41,17 @@ def get_cat_maintenance(id : int, db :Session = Depends(get_db),  current_user :
 #############################################################################################################################
 
 @router.delete("/{id}",status_code=status.HTTP_204_NO_CONTENT)
-def delete_user(id:int,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
+def delete_cat_maintenance(id:int,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
    
-   user_query = db.query(models.User).filter(models.User.id == id)
-   user = user_query.first()
+   cat_maintenance_query = db.query(models.CategoryMaintenance).filter(models.CategoryMaintenance.id == id)
+   cat_maintenance = cat_maintenance_query.first()
    
-   if user == None:
+   if cat_maintenance== None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"user with id: {id} does not exist")
+                            detail=f"Maintenance category with id : {id} does not exist")
   
          
-   user_query.delete(synchronize_session = False) 
+   cat_maintenance_query.delete(synchronize_session = False) 
    db.commit()  
    return Response(status_code=status.HTTP_204_NO_CONTENT)
 ############################################################################################################################
