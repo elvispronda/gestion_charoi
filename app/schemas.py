@@ -13,7 +13,7 @@ class UserBase(BaseModel):
     role : str
 
 
-class Userout(UserBase):
+class UserOut(UserBase):
     id : int
     email : EmailStr
     created_at : datetime
