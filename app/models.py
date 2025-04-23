@@ -102,16 +102,16 @@ class Vehicle(Base):
 #########################################################################################################################################
 
 class CategoryDocument():
-    __tablename__="category_document"
+    __tablename__= "category_document"
     id=Column(Integer,primary_key=True, index=True)
     doc_name=Column(String, nullable=False)
     cost=Column(Float, default=0.0)
 #########################################################################################################################################
 
 class DocumentVehicule():
-    __tablename__="document_vehicule"
+    __tablename__= "document_vehicule"
     id =Column(Integer,primary_key=True, index=True)
-    doc_category_id=Column(Integer,ForeignKey("category_document.id"))
+    doc_name_id=Column(Integer,ForeignKey("category_document.id"))
     vehicule_id=Column(Integer,ForeignKey("vehicles.id"))
     issued_date=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
     expiration_date=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
