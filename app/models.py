@@ -152,7 +152,7 @@ class Panne():
     __tablename__="panne"
     id=Column(Integer, primary_key=True, index=True)
     vehicle_id=(Integer, ForeignKey("vehicles.id"))
-    category_panne_id=Column(Integer, ForeignKey("category_panne.id"))
+    nom_panne_id=Column(Integer, ForeignKey("category_panne.id"))
     description=Column(String,nullable=False)
     status=Column(String,default="active") #Active,Repaired
     panne_date=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))  
