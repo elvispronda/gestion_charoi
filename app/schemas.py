@@ -74,7 +74,7 @@ class CategoryFuelOut(CategoryFuelBase):
 
 class FuelBase(BaseModel):
     vehicle_id: int
-    fuel_name_cat_id: int
+    fuel_type_id: int
     quantity:float
     cost: float
 
