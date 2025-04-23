@@ -14,7 +14,7 @@ class User(Base):
     password = Column(String, nullable=False)
     role = Column(String, nullable=False, default="driver")
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
-
+##################################################################################################################
 
 class Driver(Base):
     __tablename__ = "drivers"
@@ -25,14 +25,14 @@ class Driver(Base):
     email = Column(String, nullable=False, unique=True)
     matricule = Column(String, nullable=False, unique=True)
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
-
+##################################################################################################################
 
 class VehicleFuelType(Base):
     __tablename__ = "vehicle_fuel_type"
     id = Column(Integer, primary_key=True, index=True)
     fuel_type = Column(String, nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
-
+##################################################################################################################
 
 class Fuel(Base):
     __tablename__ = "fuel"
@@ -42,7 +42,7 @@ class Fuel(Base):
     quantity = Column(Float, nullable=False)
     cost = Column(Float, nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
-
+##################################################################################################################
 
 class Trip(Base):
     __tablename__ = "trips"
@@ -53,31 +53,31 @@ class Trip(Base):
     return_date = Column(TIMESTAMP(timezone=True), nullable=False)
     vehicle_id = Column(Integer, ForeignKey("vehicles.id"))
     driver_id = Column(Integer, ForeignKey("users.id"))
-
+##################################################################################################################
 
 class VehicleType(Base):
     __tablename__ = "vehicle_type"
     id = Column(Integer, primary_key=True, index=True)
     vehicle_type = Column(String, nullable=False)
-
+##################################################################################################################
 
 class VehicleMake(Base):
     __tablename__ = "vehicle_make"
     id = Column(Integer, primary_key=True, index=True)
     vehicle_make = Column(String, nullable=False)
-
+##################################################################################################################
 
 class VehicleModel(Base):
     __tablename__ = "vehicle_model"
     id = Column(Integer, primary_key=True, index=True)
     vehicle_model = Column(String, nullable=False)
-
+##################################################################################################################
 
 class VehicleTransmission(Base):
     __tablename__ = "vehicle_transmission"
     id = Column(Integer, primary_key=True, index=True)
     vehicle_transmission = Column(String, nullable=False)
-
+##################################################################################################################
 
 class Vehicle(Base):
     __tablename__ = "vehicles"
@@ -97,14 +97,14 @@ class Vehicle(Base):
     purchase_date = Column(Float, default=0.0)
     status = Column(String, default="available")
     registration_date = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
-
+##################################################################################################################
 
 class CategoryDocument(Base):
     __tablename__ = "category_document"
     id = Column(Integer, primary_key=True, index=True)
     doc_name = Column(String, nullable=False)
     cost = Column(Float, default=0.0)
-
+##################################################################################################################
 
 class DocumentVehicule(Base):
     __tablename__ = "document_vehicule"
@@ -114,19 +114,19 @@ class DocumentVehicule(Base):
     issued_date = Column(TIMESTAMP(timezone=True), nullable=False)
     expiration_date = Column(TIMESTAMP(timezone=True), nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
-
+##################################################################################################################
 
 class Garage(Base):
     __tablename__ = "garage"
     id = Column(Integer, primary_key=True, index=True)
     nom_garage = Column(String, nullable=False)
-
+##################################################################################################################
 
 class CategoryMaintenance(Base):
     __tablename__ = "category_maintenance"
     id = Column(Integer, primary_key=True, index=True)
     cat_maintenance = Column(String, nullable=False)
-
+##################################################################################################################
 
 class Maintenance(Base):
     __tablename__ = "maintenance"
@@ -138,13 +138,13 @@ class Maintenance(Base):
     receipt = Column(String, nullable=False)
     maintenance_date = Column(TIMESTAMP(timezone=True), nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
-
+##################################################################################################################
 
 class CategoryPanne(Base):
     __tablename__ = "category_panne"
     id = Column(Integer, primary_key=True, index=True)
     nom_panne = Column(String, nullable=False)
-
+##################################################################################################################
 
 class Panne(Base):
     __tablename__ = "panne"
@@ -155,7 +155,7 @@ class Panne(Base):
     status = Column(String, default="active")
     panne_date = Column(TIMESTAMP(timezone=True), nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
-
+##################################################################################################################
 
 class Reparation(Base):
     __tablename__ = "reparation"
