@@ -78,10 +78,10 @@ class FuelBase(BaseModel):
     quantity:float
     cost: float
 
-class FuelLogCreate(FuelBase):
+class FuelCreate(FuelBase):
     pass
 
-class FuelLogOut(FuelBase):
+class FuelOut(FuelBase):
     id: int
     created_at: datetime
 
