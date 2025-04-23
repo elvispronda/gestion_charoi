@@ -21,13 +21,13 @@ def create_cat_document(cat_document : schemas.CategoryDocumentCreate, db:Sessio
 
 ############################################################################################################################
 
-@router.get("/", response_model = List[schemas.CategoryDocumentBase])
+@router.get("/", response_model = List[schemas.CategoryDocumentOut])
 def get_documents(db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user),
               limit : int = 5, skip : int = 0, search :Optional[str] = ""):
               
   
     ##filter all documents at the same time
-    documents = db.query(models.DocumentVehicule).filter(models.DocumentVehicule.doc_name.contains(search)).limit(limit).offset(skip).all()
+    documents = db.query(models.CategoryDocument).filter(models.CategoryDocument.doc_name.contains(search)).limit(limit).offset(skip).all()
     return documents
 ############################################################################################################################
 
