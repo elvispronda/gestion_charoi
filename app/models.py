@@ -101,14 +101,14 @@ class Vehicle(Base):
     registration_date=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
 #########################################################################################################################################
 
-class CategoryDocument():
+class CategoryDocument(Base):
     __tablename__= "category_document"
     id=Column(Integer,primary_key=True, index=True)
     doc_name=Column(String, nullable=False)
     cost=Column(Float, default=0.0)
 #########################################################################################################################################
 
-class DocumentVehicule():
+class DocumentVehicule(Base):
     __tablename__= "document_vehicule"
     id =Column(Integer,primary_key=True, index=True)
     doc_name_id=Column(Integer,ForeignKey("category_document.id"))
@@ -118,19 +118,19 @@ class DocumentVehicule():
     Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
 #########################################################################################################################################
 
-class Garage():
+class Garage(Base):
     __tablename__="garage"
     id=Column(Integer,primary_key=True, index=True)
     nom_garage=Column(String, nullable=False)
 #########################################################################################################################################
 
-class CategoryMaintenance():
+class CategoryMaintenance(Base):
     __tablename__="category_maintenance"
     id=Column(Integer,primary_key=True, index=True)
     cat_maintenance=Column(String, nullable=False)
 #########################################################################################################################################
 
-class Maintenance():
+class Maintenance(Base):
     __tablename__="maintenance"
     id =Column(Integer,primary_key=True, index=True)
     cat_maintenance_id=Column(Integer,ForeignKey("category_maintenance.id"))
@@ -142,13 +142,13 @@ class Maintenance():
     created_at=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))  
 #########################################################################################################################################
 
-class CategoryPanne():
+class CategoryPanne(Base):
     __tablename__="category_panne"
     id=Column(Integer,primary_key=True, index=True)
     nom_panne=Column(String, nullable=False)
 #########################################################################################################################################
 
-class Panne():
+class Panne(Base):
     __tablename__="panne"
     id=Column(Integer, primary_key=True, index=True)
     vehicle_id=(Integer, ForeignKey("vehicles.id"))
@@ -159,7 +159,7 @@ class Panne():
     created_at=Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()')) 
 #########################################################################################################################################
 
-class Reparation():
+class Reparation(Base):
     __tablename__="reparation"
     id=Column(Integer, primary_key=True,index=True)
     panne_id=Column(Integer, ForeignKey("panne.id"))
