@@ -31,43 +31,42 @@ def get_documents(db:Session = Depends(get_db), current_user : str = Depends(oau
     return documents
 ############################################################################################################################
 
-@router.get("/{id}", response_model=schemas.DocumentVehiculeOut)
+@router.get("/{id}", response_model=schemas.CategoryDocumentOut)
 def get_document(id : int, db :Session = Depends(get_db),  current_user : str = Depends(oauth2.get_current_user)):
-    document = db.query(models.CategoryDocument).filter(models.User.id == id).first()
+    document = db.query(models.CategoryDocument).filter(models.CategoryDocument.id == id).first()
     
-    if not user :
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"user with id : {id} was not found")
-    return user
+    if not document :
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"document with id : {id} was not found")
+    return document
 
 #############################################################################################################################
 
 @router.delete("/{id}",status_code=status.HTTP_204_NO_CONTENT)
-def delete_user(id:int,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
+def delete_document(id:int,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
    
-   user_query = db.query(models.User).filter(models.User.id == id)
-   user = user_query.first()
+   doc_query = db.query(models.CategoryDocument).filter(models.CategoryDocument.id == id)
+   document = doc_query.first()
    
-   if user == None:
+   if document == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"user with id: {id} does not exist")
-  
-         
-   user_query.delete(synchronize_session = False) 
+                            detail=f"document with id: {id} does not exist")
+       
+   doc_query.delete(synchronize_session = False) 
    db.commit()  
    return Response(status_code=status.HTTP_204_NO_CONTENT)
 ############################################################################################################################
 
-@router.put("/{id}", response_model=schemas.UserCreate)
-def update_user(id:int,updated_user:schemas.UserCreate,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
+@router.put("/{id}", response_model=schemas.CategoryDocumentCreate)
+def update_doc(id:int,updated_doc:schemas.CategoryDocumentCreate,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
     
   
-    user_query = db.query(models.User).filter(models.User.id == id)
-    user =user_query.first()
-    if user == None:
+    doc_query = db.query(models.CategoryDocument).filter(models.CategoryDocument.id == id)
+    document =doc_query.first()
+    if document== None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"user with id: {id} does not exist")
+                            detail=f"document with id: {id} does not exist")
    
-    user_query.update(updated_user.dict(),synchronize_session = False)
+    doc_query.update(updated_doc.dict(),synchronize_session = False)
     db.commit()
-    return user_query.first()  
+    return doc_query.first()  
 ############################################################################################################################
