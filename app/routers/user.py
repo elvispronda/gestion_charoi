@@ -25,7 +25,7 @@ def create_user(user : schemas.UserCreate, db:Session = Depends(get_db)):
 ############################################################################################################################
 
 @router.get("/", response_model = List[schemas.UserOut])
-def get_posts(db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user),
+def get_users(db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user),
               limit : int = 5, skip : int = 0, search :Optional[str] = ""):
               
   
