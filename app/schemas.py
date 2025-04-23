@@ -338,6 +338,7 @@ class ReparationBase(BaseModel):
    receipt:str
    garage_id: int
    repair_date:datetime
+   status:str
 
 class ReparationCreate(ReparationBase):
     pass
