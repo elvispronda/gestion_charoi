@@ -5,19 +5,26 @@ from typing import Optional, Union
 from datetime import date
 
 ###################################################################################################################
+class UserBase(BaseModel):
+    username :str
+    full_name : str
+    email : EmailStr
+    password : str
+    role : str
 
 
-class Userout(BaseModel):
+class Userout(UserBase):
     id : int
     email : EmailStr
     created_at : datetime
     
     class config :
-        orm_mode = True            
-class UserCreate(BaseModel):
-    email : EmailStr
-    password : str
-          
+        orm_mode = True   
+
+class UserCreate(UserBase):
+    pass
+   
+
 class UserLogin(BaseModel):
     email : EmailStr
     password : str
