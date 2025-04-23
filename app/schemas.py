@@ -63,7 +63,7 @@ class CategoryFuelBase(BaseModel):
 class CategoryFuelCreate(CategoryFuelBase):
     pass
 
-class FuelLogOut(CategoryFuelBase):
+class CategoryFuelOut(CategoryFuelBase):
     id: int
     created_at: datetime
 
