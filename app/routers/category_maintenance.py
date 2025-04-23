@@ -64,7 +64,7 @@ def update_cat_maintenance(id:int,updated_user:schemas.CategoryMaintenanceCreate
     cat_maintenance =cat_maintenance_query.first()
     if cat_maintenance == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"user with id: {id} does not exist")
+                            detail=f"Maintenance category with id: {id} does not exist")
    
     cat_maintenance_query.update(updated_user.dict(),synchronize_session = False)
     db.commit()
