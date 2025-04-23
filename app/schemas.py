@@ -5,9 +5,7 @@ from typing import Optional, Union
 from datetime import date
 
 ###################################################################################################################
-class UserCreate(BaseModel):
-    email : EmailStr
-    password : str
+
 
 class Userout(BaseModel):
     id : int
@@ -16,7 +14,10 @@ class Userout(BaseModel):
     
     class config :
         orm_mode = True            
-       
+class UserCreate(BaseModel):
+    email : EmailStr
+    password : str
+          
 class UserLogin(BaseModel):
     email : EmailStr
     password : str
