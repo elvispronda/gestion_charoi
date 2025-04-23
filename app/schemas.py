@@ -234,7 +234,7 @@ class DocumentVehiculeOut(CategoryDocumentBase):
 #####################################################################################################################
 
 class DocumentVehiculeBase(BaseModel):
-   doc_category_id: int
+   doc_name_id: int
    vehicle_id:int
    issued_date:datetime
    expiration_date:datetime
