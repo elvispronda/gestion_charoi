@@ -56,17 +56,17 @@ def delete_veh_doc(id:int,db:Session = Depends(get_db), current_user : str = Dep
    return Response(status_code=status.HTTP_204_NO_CONTENT)
 ############################################################################################################################
 
-@router.put("/{id}", response_model=schemas.UserCreate)
-def update_user(id:int,updated_user:schemas.UserCreate,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
+@router.put("/{id}", response_model=schemas.DocumentVehiculeCreate)
+def update_user(id:int,updated_veh_doc:schemas.DocumentVehiculeCreate,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
     
   
-    user_query = db.query(models.User).filter(models.User.id == id)
-    user =user_query.first()
-    if user == None:
+    vehicle_doc_query = db.query(models.DocumentVehicule).filter(models.DocumentVehicule.id == id)
+    vehicle_doc =vehicle_doc_query.first()
+    if vehicle_doc == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"user with id: {id} does not exist")
+                            detail=f"Vehicle document with id: {id} does not exist")
    
-    user_query.update(updated_user.dict(),synchronize_session = False)
+    vehicle_doc_query.update(updated_veh_doc.dict(),synchronize_session = False)
     db.commit()
-    return user_query.first()  
+    return vehicle_doc_query.first()  
 ############################################################################################################################
