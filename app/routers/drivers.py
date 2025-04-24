@@ -19,53 +19,53 @@ def create_driver(driver : schemas.DriverCreate, db:Session = Depends(get_db)):
 
 ############################################################################################################################
 
-@router.get("/", response_model = List[schemas.UserOut])
-def get_posts(db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user),
+@router.get("/", response_model = List[schemas.DriverOut])
+def get_drivers(db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user),
               limit : int = 5, skip : int = 0, search :Optional[str] = ""):
               
   
-    ##filter all users at the same time
-    users = db.query(models.User).filter(models.User.email.contains(search)).limit(limit).offset(skip).all()
-    return users 
+    ##filter all drivers at the same time
+    drivers= db.query(models.Driver).filter(models.Driver.matricule.contains(search)).limit(limit).offset(skip).all()
+    return drivers
 ############################################################################################################################
 
-@router.get("/{id}", response_model=schemas.UserOut)
-def get_user(id : int, db :Session = Depends(get_db),  current_user : str = Depends(oauth2.get_current_user)):
-    user = db.query(models.User).filter(models.User.id == id).first()
+@router.get("/{id}", response_model=schemas.DriverOut)
+def get_driver(id : int, db :Session = Depends(get_db),  current_user : str = Depends(oauth2.get_current_user)):
+    driver = db.query(models.Driver).filter(models.Driver.id == id).first()
     
-    if not user :
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"user with id : {id} was not found")
-    return user
+    if not driver :
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"driver with id : {id} was not found")
+    return driver
 
 #############################################################################################################################
 
 @router.delete("/{id}",status_code=status.HTTP_204_NO_CONTENT)
-def delete_user(id:int,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
+def delete_driver(id:int,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
    
-   user_query = db.query(models.User).filter(models.User.id == id)
-   user = user_query.first()
+   driver_query = db.query(models.Driver).filter(models.Driver.id == id)
+   driver = driver_query.first()
    
-   if user == None:
+   if driver == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"user with id: {id} does not exist")
+                            detail=f"driver with id: {id} does not exist")
   
          
-   user_query.delete(synchronize_session = False) 
+   driver_query.delete(synchronize_session = False) 
    db.commit()  
    return Response(status_code=status.HTTP_204_NO_CONTENT)
 ############################################################################################################################
 
-@router.put("/{id}", response_model=schemas.UserCreate)
-def update_user(id:int,updated_user:schemas.UserCreate,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
+@router.put("/{id}", response_model=schemas.DriverCreate)
+def update_driver(id:int,updated_driver:schemas.DriverCreate,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
     
   
-    user_query = db.query(models.User).filter(models.User.id == id)
-    user =user_query.first()
-    if user == None:
+    driver_query = db.query(models.User).filter(models.User.id == id)
+    driver =driver_query.first()
+    if driver == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"user with id: {id} does not exist")
+                            detail=f"driver with id: {id} does not exist")
    
-    user_query.update(updated_user.dict(),synchronize_session = False)
+    driver_query.update(updated_driver.dict(),synchronize_session = False)
     db.commit()
-    return user_query.first()  
+    return driver_query.first()  
 ############################################################################################################################
