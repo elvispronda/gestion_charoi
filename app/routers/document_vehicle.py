@@ -41,17 +41,17 @@ def get_vehicle_doc(id : int, db :Session = Depends(get_db),  current_user : str
 #############################################################################################################################
 
 @router.delete("/{id}",status_code=status.HTTP_204_NO_CONTENT)
-def delete_user(id:int,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
+def delete_veh_doc(id:int,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
    
-   user_query = db.query(models.User).filter(models.User.id == id)
-   user = user_query.first()
+   vehicle_doc_query = db.query(models.DocumentVehicule).filter(models.DocumentVehicule.id == id)
+   vehicle_doc = vehicle_doc_query.first()
    
-   if user == None:
+   if vehicle_doc == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"user with id: {id} does not exist")
+                            detail=f"Vehicle document with id: {id} does not exist")
   
          
-   user_query.delete(synchronize_session = False) 
+   vehicle_doc_query.delete(synchronize_session = False) 
    db.commit()  
    return Response(status_code=status.HTTP_204_NO_CONTENT)
 ############################################################################################################################
