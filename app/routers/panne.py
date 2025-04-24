@@ -20,14 +20,14 @@ def create_panne(panne : schemas.PanneCreate, db:Session = Depends(get_db)):
 
 ############################################################################################################################
 
-@router.get("/", response_model = List[schemas.UserOut])
-def get_users(db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user),
+@router.get("/", response_model = List[schemas.PanneOut])
+def get_pannelog(db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user),
               limit : int = 5, skip : int = 0, search :Optional[str] = ""):
               
   
-    ##filter all users at the same time
-    users = db.query(models.User).filter(models.User.email.contains(search)).limit(limit).offset(skip).all()
-    return users 
+    ##filter all pannes log at the same time
+    pannes = db.query(models.Panne).filter(models.Panne.vehicle_id.contains(search)).limit(limit).offset(skip).all()
+    return pannes 
 ############################################################################################################################
 
 @router.get("/{id}", response_model=schemas.UserOut)
