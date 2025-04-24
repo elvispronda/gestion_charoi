@@ -8,38 +8,34 @@ from ..database import  get_db
 
 router = APIRouter(prefix="/category_panne", tags=['Category Panne'])
 ############################################################################################################################
-@router.post("/",status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut) 
-def create_user(user : schemas.UserCreate, db:Session = Depends(get_db)):
-    
-    # Hash the password   _ user.password
-    hashed_password = utils.hash(user.password)
-    user.password = hashed_password
-    
-    new_user = models.User(**user.dict())
-    db.add(new_user)
+@router.post("/",status_code=status.HTTP_201_CREATED, response_model=schemas.CategoryPanneOut) 
+def create_category_panne(cat_panne : schemas.CategoryPanneCreate, db:Session = Depends(get_db)):
+  
+    new_Cat_panne= models.CategoryPanne(**cat_panne.dict())
+    db.add(new_Cat_panne)
     db.commit()
-    db.refresh(new_user)
-    return new_user
+    db.refresh(new_Cat_panne)
+    return new_Cat_panne
 
 ############################################################################################################################
 
-@router.get("/", response_model = List[schemas.UserOut])
-def get_posts(db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user),
+@router.get("/", response_model = List[schemas.CategoryPanneOut])
+def get_panne_categories(db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user),
               limit : int = 5, skip : int = 0, search :Optional[str] = ""):
               
   
-    ##filter all users at the same time
-    users = db.query(models.User).filter(models.User.email.contains(search)).limit(limit).offset(skip).all()
+    ##filter all panne categories at the same time
+    users = db.query(models.CategoryPanne).filter(models.CategoryPanne.nom_panne.contains(search)).limit(limit).offset(skip).all()
     return users 
 ############################################################################################################################
 
-@router.get("/{id}", response_model=schemas.UserOut)
-def get_user(id : int, db :Session = Depends(get_db),  current_user : str = Depends(oauth2.get_current_user)):
-    user = db.query(models.User).filter(models.User.id == id).first()
+@router.get("/{id}", response_model=schemas.CategoryPanneOut)
+def get_panne_category(id : int, db :Session = Depends(get_db),  current_user : str = Depends(oauth2.get_current_user)):
+    cat_panne = db.query(models.CategoryPanne).filter(models.CategoryPanne.id == id).first()
     
-    if not user :
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"user with id : {id} was not found")
-    return user
+    if not cat_panne :
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Category Panne with id : {id} was not found")
+    return cat_panne
 
 #############################################################################################################################
 
