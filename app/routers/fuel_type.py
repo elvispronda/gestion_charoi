@@ -9,18 +9,15 @@ from ..database import  get_db
 router = APIRouter(prefix="/fuel_type", tags=['Fuel Type'])
 
 ############################################################################################################################
-@router.post("/",status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut) 
-def create_user(user : schemas.UserCreate, db:Session = Depends(get_db)):
+@router.post("/",status_code=status.HTTP_201_CREATED, response_model=schemas.FuelTypeOut) 
+def create_fuel_type(typefuel : schemas.FuelTypeCreate, db:Session = Depends(get_db)):
     
-    # Hash the password   _ user.password
-    hashed_password = utils.hash(user.password)
-    user.password = hashed_password
     
-    new_user = models.User(**user.dict())
-    db.add(new_user)
+    new_fueltype = models.User(**typefuel.dict())
+    db.add(new_fueltype)
     db.commit()
-    db.refresh(new_user)
-    return new_user
+    db.refresh(new_fueltype)
+    return new_fueltype
 
 ############################################################################################################################
 
