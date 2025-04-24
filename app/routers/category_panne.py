@@ -6,7 +6,7 @@ from sqlalchemy import func
 from .. import models ,schemas,oauth2,utils
 from ..database import  get_db
 
-router = APIRouter(prefix="/user", tags=['User'])
+router = APIRouter(prefix="/category_panne", tags=['Category Panne'])
 ############################################################################################################################
 @router.post("/",status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut) 
 def create_user(user : schemas.UserCreate, db:Session = Depends(get_db)):
@@ -44,32 +44,32 @@ def get_user(id : int, db :Session = Depends(get_db),  current_user : str = Depe
 #############################################################################################################################
 
 @router.delete("/{id}",status_code=status.HTTP_204_NO_CONTENT)
-def delete_user(id:int,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
+def delete_cat_panne(id:int,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
    
-   user_query = db.query(models.User).filter(models.User.id == id)
-   user = user_query.first()
+   cat_panne_query = db.query(models.CategoryPanne).filter(models.CategoryPanne.id == id)
+   cat_panne =cat_panne_query.first()
    
-   if user == None:
+   if cat_panne == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"user with id: {id} does not exist")
+                            detail=f"Category Panne with id: {id} does not exist")
   
          
-   user_query.delete(synchronize_session = False) 
+   cat_panne_query.delete(synchronize_session = False) 
    db.commit()  
    return Response(status_code=status.HTTP_204_NO_CONTENT)
 ############################################################################################################################
 
-@router.put("/{id}", response_model=schemas.UserCreate)
-def update_user(id:int,updated_user:schemas.UserCreate,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
+@router.put("/{id}", response_model=schemas.CategoryPanneCreate)
+def update_cat_panne(id:int,updated_cat_panne:schemas.CategoryPanneCreate,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
     
   
-    user_query = db.query(models.User).filter(models.User.id == id)
-    user =user_query.first()
-    if user == None:
+    cat_panne_query = db.query(models.User).filter(models.User.id == id)
+    cat_panne =cat_panne_query.first()
+    if cat_panne == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"user with id: {id} does not exist")
    
-    user_query.update(updated_user.dict(),synchronize_session = False)
+    cat_panne_query.update(updated_cat_panne.dict(),synchronize_session = False)
     db.commit()
-    return user_query.first()  
+    return cat_panne_query.first()  
 ############################################################################################################################
