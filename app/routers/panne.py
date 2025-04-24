@@ -43,15 +43,15 @@ def get_panne(id : int, db :Session = Depends(get_db),  current_user : str = Dep
 @router.delete("/{id}",status_code=status.HTTP_204_NO_CONTENT)
 def delete_panne(id:int,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
    
-   user_query = db.query(models.User).filter(models.User.id == id)
-   user = user_query.first()
+   panne_query = db.query(models.Panne).filter(models.Panne.id == id)
+   panne = panne_query.first()
    
-   if user == None:
+   if panne == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"user with id: {id} does not exist")
+                            detail=f"Panne log with this car id : {id} does not exist")
   
          
-   user_query.delete(synchronize_session = False) 
+   panne_query.delete(synchronize_session = False) 
    db.commit()  
    return Response(status_code=status.HTTP_204_NO_CONTENT)
 ############################################################################################################################
