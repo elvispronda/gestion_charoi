@@ -13,7 +13,7 @@ router = APIRouter(prefix="/fuel_type", tags=['Fuel Type'])
 def create_fuel_type(typefuel : schemas.FuelTypeCreate, db:Session = Depends(get_db)):
     
     
-    new_fueltype = models.User(**typefuel.dict())
+    new_fueltype = models.FuelType(**typefuel.dict())
     db.add(new_fueltype)
     db.commit()
     db.refresh(new_fueltype)
