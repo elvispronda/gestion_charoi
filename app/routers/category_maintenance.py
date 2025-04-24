@@ -57,7 +57,7 @@ def delete_cat_maintenance(id:int,db:Session = Depends(get_db), current_user : s
 ############################################################################################################################
 
 @router.put("/{id}", response_model=schemas.CategoryMaintenanceCreate)
-def update_cat_maintenance(id:int,updated_user:schemas.CategoryMaintenanceCreate,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
+def update_cat_maintenance(id:int,updated_cat_maintenance:schemas.CategoryMaintenanceCreate,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
     
   
     cat_maintenance_query = db.query(models.CategoryMaintenance).filter(models.CategoryMaintenance.id == id)
@@ -66,7 +66,7 @@ def update_cat_maintenance(id:int,updated_user:schemas.CategoryMaintenanceCreate
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Maintenance category with id: {id} does not exist")
    
-    cat_maintenance_query.update(updated_user.dict(),synchronize_session = False)
+    cat_maintenance_query.update(updated_cat_maintenance.dict(),synchronize_session = False)
     db.commit()
     return cat_maintenance_query.first()  
 ############################################################################################################################
