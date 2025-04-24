@@ -30,18 +30,18 @@ def get_pannelog(db:Session = Depends(get_db), current_user : str = Depends(oaut
     return pannes 
 ############################################################################################################################
 
-@router.get("/{id}", response_model=schemas.UserOut)
-def get_user(id : int, db :Session = Depends(get_db),  current_user : str = Depends(oauth2.get_current_user)):
-    user = db.query(models.User).filter(models.User.id == id).first()
+@router.get("/{id}", response_model=schemas.PanneOut)
+def get_panne(id : int, db :Session = Depends(get_db),  current_user : str = Depends(oauth2.get_current_user)):
+    panne = db.query(models.Panne).filter(models.Panne.id == id).first()
     
-    if not user :
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"user with id : {id} was not found")
-    return user
+    if not panne :
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Panne log with this car id : {id} was not found")
+    return panne
 
 #############################################################################################################################
 
 @router.delete("/{id}",status_code=status.HTTP_204_NO_CONTENT)
-def delete_user(id:int,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
+def delete_panne(id:int,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
    
    user_query = db.query(models.User).filter(models.User.id == id)
    user = user_query.first()
