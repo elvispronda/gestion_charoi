@@ -6,31 +6,28 @@ from sqlalchemy import func
 from .. import models ,schemas,oauth2,utils
 from ..database import  get_db
 
-router = APIRouter(prefix="/user", tags=['User'])
+router = APIRouter(prefix="/garage", tags=['Garage'])
 ############################################################################################################################
-@router.post("/",status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut) 
-def create_user(user : schemas.UserCreate, db:Session = Depends(get_db)):
+@router.post("/",status_code=status.HTTP_201_CREATED, response_model=schemas.GarageCreate) 
+def create_garage(garage : schemas.GarageCreate, db:Session = Depends(get_db)):
     
-    # Hash the password   _ user.password
-    hashed_password = utils.hash(user.password)
-    user.password = hashed_password
-    
-    new_user = models.User(**user.dict())
-    db.add(new_user)
+
+    new_garage = models.Garage(**garage.dict())
+    db.add(new_garage)
     db.commit()
-    db.refresh(new_user)
-    return new_user
+    db.refresh(new_garage)
+    return new_garage
 
 ############################################################################################################################
 
-@router.get("/", response_model = List[schemas.UserOut])
-def get_posts(db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user),
+@router.get("/", response_model = List[schemas.GarageOut])
+def get_garage(db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user),
               limit : int = 5, skip : int = 0, search :Optional[str] = ""):
               
   
-    ##filter all users at the same time
-    users = db.query(models.User).filter(models.User.email.contains(search)).limit(limit).offset(skip).all()
-    return users 
+    ##filter all garages at the same time
+    garages = db.query(models.Garage).filter(models.Garage.nom_garage.contains(search)).limit(limit).offset(skip).all()
+    return garages
 ############################################################################################################################
 
 @router.get("/{id}", response_model=schemas.UserOut)
