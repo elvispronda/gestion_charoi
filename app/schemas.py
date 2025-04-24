@@ -39,10 +39,10 @@ class DriverBase(BaseModel):
     email: str
     matricule: str
 
-class BudgetCreate(DriverBase):
+class DriverCreate(DriverBase):
     pass
 
-class BudgetOut(DriverBase):
+class DriverOut(DriverBase):
     id: int
     created_at: datetime
 
