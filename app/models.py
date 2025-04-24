@@ -6,7 +6,7 @@ from .database import Base
 
 
 class User(Base):
-    __tablename__ = "users"
+    __tablename__ = "user"
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String, unique=True, nullable=False)
     full_name = Column(String, nullable=False)
@@ -17,7 +17,7 @@ class User(Base):
 ##################################################################################################################
 
 class Driver(Base):
-    __tablename__ = "drivers"
+    __tablename__ = "driver"
     id = Column(Integer, primary_key=True, index=True)
     nom = Column(String, nullable=False)
     prenom = Column(String, nullable=False)
@@ -37,7 +37,7 @@ class FuelType(Base):
 class Fuel(Base):
     __tablename__ = "fuel"
     id = Column(Integer, primary_key=True, index=True)
-    vehicle_id = Column(Integer, ForeignKey("vehicles.id", ondelete="CASCADE"), nullable=False)
+    vehicle_id = Column(Integer, ForeignKey("vehicle.id", ondelete="CASCADE"), nullable=False)
     fuel_type_id = Column(Integer, ForeignKey("fuel_type.id", ondelete="CASCADE"), nullable=False)
     quantity = Column(Float, nullable=False)
     cost = Column(Float, nullable=False)
@@ -45,14 +45,14 @@ class Fuel(Base):
 ##################################################################################################################
 
 class Trip(Base):
-    __tablename__ = "trips"
+    __tablename__ = "trip"
     id = Column(Integer, primary_key=True, index=True)
     origin = Column(String, nullable=False)
     destination = Column(String, nullable=False)
     departure_date = Column(TIMESTAMP(timezone=True), nullable=False)
     return_date = Column(TIMESTAMP(timezone=True), nullable=False)
-    vehicle_id = Column(Integer, ForeignKey("vehicles.id"))
-    driver_id = Column(Integer, ForeignKey("users.id"))
+    vehicle_id = Column(Integer, ForeignKey("vehicle.id"))
+    driver_id = Column(Integer, ForeignKey("user.id"))
 ##################################################################################################################
 
 class VehicleType(Base):
@@ -80,7 +80,7 @@ class VehicleTransmission(Base):
 ##################################################################################################################
 
 class Vehicle(Base):
-    __tablename__ = "vehicles"
+    __tablename__ = "vehicle"
     id = Column(Integer, primary_key=True, index=True)
     make = Column(Integer, ForeignKey("vehicle_make.id"))
     model = Column(Integer, ForeignKey("vehicle_model.id"))
@@ -90,7 +90,7 @@ class Vehicle(Base):
     engine_size = Column(Float, default=0.0)
     vehicle_type = Column(Integer, ForeignKey("vehicle_type.id"))
     vehicle_transmission = Column(Integer, ForeignKey("vehicle_transmission.id"))
-    vehicle_fuel_type = Column(Integer, ForeignKey("vehicle_fuel_type.id"))
+    vehicle_fuel_type = Column(Integer, ForeignKey("fuel_type.id"))
     vin = Column(String, nullable=False)
     color = Column(String, nullable=False)
     purchase_price = Column(Float, default=0.0)
@@ -110,7 +110,7 @@ class DocumentVehicule(Base):
     __tablename__ = "document_vehicule"
     id = Column(Integer, primary_key=True, index=True)
     doc_name_id = Column(Integer, ForeignKey("category_document.id"))
-    vehicule_id = Column(Integer, ForeignKey("vehicles.id"))
+    vehicule_id = Column(Integer, ForeignKey("vehicle.id"))
     issued_date = Column(TIMESTAMP(timezone=True), nullable=False)
     expiration_date = Column(TIMESTAMP(timezone=True), nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
@@ -132,7 +132,7 @@ class Maintenance(Base):
     __tablename__ = "maintenance"
     id = Column(Integer, primary_key=True, index=True)
     cat_maintenance_id = Column(Integer, ForeignKey("category_maintenance.id"))
-    vehicule_id = Column(Integer, ForeignKey("vehicles.id"))
+    vehicule_id = Column(Integer, ForeignKey("vehicle.id"))
     garage_id = Column(Integer, ForeignKey("garage.id"))
     maintenance_cost = Column(Float, default=0.0)
     receipt = Column(String, nullable=False)
@@ -149,7 +149,7 @@ class CategoryPanne(Base):
 class Panne(Base):
     __tablename__ = "panne"
     id = Column(Integer, primary_key=True, index=True)
-    vehicle_id = Column(Integer, ForeignKey("vehicles.id"))
+    vehicle_id = Column(Integer, ForeignKey("vehicle.id"))
     nom_panne_id = Column(Integer, ForeignKey("category_panne.id"))
     description = Column(String, nullable=True)
     status = Column(String, default="active")
