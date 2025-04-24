@@ -65,7 +65,7 @@ def update_fueltype(id:int,updated_fueltype:schemas.FuelTypeCreate,db:Session = 
     fueltype =fueltype_query.first()
     if fueltype == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"user with id: {id} does not exist")
+                            detail=f"Fuel Type with id: {id} does not exist")
    
     fueltype_query.update(updated_fueltype.dict(),synchronize_session = False)
     db.commit()
