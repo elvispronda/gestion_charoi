@@ -20,23 +20,23 @@ def create_maintenance(maintenance : schemas.MaintenanceCreate, db:Session = Dep
 
 ############################################################################################################################
 
-@router.get("/", response_model = List[schemas.UserOut])
-def get_users(db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user),
+@router.get("/", response_model = List[schemas.MaintenanceOut])
+def get_maintenanceLog(db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user),
               limit : int = 5, skip : int = 0, search :Optional[str] = ""):
               
   
-    ##filter all users at the same time
-    users = db.query(models.User).filter(models.User.email.contains(search)).limit(limit).offset(skip).all()
-    return users 
+    ##filter all maintenance  logsat the same time
+    maintenances = db.query(models.Maintenance).filter(models.Maintenance.vehicule_id.contains(search)).limit(limit).offset(skip).all()
+    return maintenances 
 ############################################################################################################################
 
 @router.get("/{id}", response_model=schemas.UserOut)
-def get_user(id : int, db :Session = Depends(get_db),  current_user : str = Depends(oauth2.get_current_user)):
-    user = db.query(models.User).filter(models.User.id == id).first()
+def get_maintenancelog(id : int, db :Session = Depends(get_db),  current_user : str = Depends(oauth2.get_current_user)):
+    maintenance = db.query(models.Maintenance).filter(models.Maintenance.id == id).first()
     
-    if not user :
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"user with id : {id} was not found")
-    return user
+    if not maintenance :
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Maintenance with this Car id : {id} was not found")
+    return maintenance
 
 #############################################################################################################################
 
