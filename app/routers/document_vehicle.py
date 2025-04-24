@@ -9,18 +9,14 @@ from ..database import  get_db
 router = APIRouter(prefix="/document_vehicle", tags=['Document vehicle'])
 
 ############################################################################################################################
-@router.post("/",status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut) 
-def create_doc_vehicle(user : schemas.UserCreate, db:Session = Depends(get_db)):
-    
-    # Hash the password   _ user.password
-    hashed_password = utils.hash(user.password)
-    user.password = hashed_password
-    
-    new_user = models.User(**user.dict())
-    db.add(new_user)
+@router.post("/",status_code=status.HTTP_201_CREATED, response_model=schemas.DocumentVehiculeOut) 
+def create_doc_vehicle(doc_vehicle : schemas.DocumentVehiculeCreate, db:Session = Depends(get_db)):
+ 
+    new_doc_vehicle = models.DocumentVehicule(**doc_vehicle.dict())
+    db.add(new_doc_vehicle)
     db.commit()
-    db.refresh(new_user)
-    return new_user
+    db.refresh(new_doc_vehicle)
+    return new_doc_vehicle
 
 ############################################################################################################################
 
