@@ -20,23 +20,23 @@ def create_doc_vehicle(doc_vehicle : schemas.DocumentVehiculeCreate, db:Session 
 
 ############################################################################################################################
 
-@router.get("/", response_model = List[schemas.UserOut])
-def get_users(db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user),
+@router.get("/", response_model = List[schemas.DocumentVehiculeOut])
+def get_vehicle_documents(db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user),
               limit : int = 5, skip : int = 0, search :Optional[str] = ""):
               
   
-    ##filter all users at the same time
-    users = db.query(models.User).filter(models.User.email.contains(search)).limit(limit).offset(skip).all()
-    return users 
+    ##filter all  vehicle documents at the same time
+    vehicle_docs = db.query(models.DocumentVehicule).filter(models.DocumentVehicule.doc_name_id.contains(search)).limit(limit).offset(skip).all()
+    return vehicle_docs 
 ############################################################################################################################
 
-@router.get("/{id}", response_model=schemas.UserOut)
-def get_user(id : int, db :Session = Depends(get_db),  current_user : str = Depends(oauth2.get_current_user)):
-    user = db.query(models.User).filter(models.User.id == id).first()
+@router.get("/{id}", response_model=schemas.DocumentVehiculeOut)
+def get_vehicle_doc(id : int, db :Session = Depends(get_db),  current_user : str = Depends(oauth2.get_current_user)):
+    veh_doc = db.query(models.DocumentVehicule).filter(models.DocumentVehicule.id == id).first()
     
-    if not user :
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"user with id : {id} was not found")
-    return user
+    if not veh_doc :
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Vehicle document with id : {id} was not found")
+    return veh_doc
 
 #############################################################################################################################
 
