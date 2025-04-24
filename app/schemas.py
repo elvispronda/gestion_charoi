@@ -112,13 +112,13 @@ class VehicleTransmissionOut(VehicleTransmissionBase):
         from_attributes = True
 ##################################################################################################################
 
-class VehicleFuelTypeBase(BaseModel):
+class FuelTypeBase(BaseModel):
     fuel_type: str
 
-class VehicleFuelTypeCreate(VehicleFuelTypeBase):
+class FuelTypeCreate(FuelTypeBase):
     pass
 
-class VehicleFuelTypeOut(VehicleFuelTypeBase):
+class FuelTypeOut(FuelTypeBase):
     id: int
 
     class Config:
