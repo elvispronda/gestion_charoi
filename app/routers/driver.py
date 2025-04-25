@@ -6,7 +6,7 @@ from sqlalchemy import func
 from .. import models ,schemas,oauth2,utils
 from ..database import  get_db
 
-router = APIRouter(prefix="/drivers", tags=['Drivers'])
+router = APIRouter(prefix="/driver", tags=['Drivers'])
 ############################################################################################################################
 @router.post("/",status_code=status.HTTP_201_CREATED, response_model=schemas.DriverOut) 
 def create_driver(driver : schemas.DriverCreate, db:Session = Depends(get_db)):
