@@ -21,14 +21,14 @@ def create_veh_type(veh_type : schemas.VehicleTypeCreate, db:Session = Depends(g
 
 ############################################################################################################################
 
-@router.get("/", response_model = List[schemas.UserOut])
-def get_users(db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user),
+@router.get("/", response_model = List[schemas.VehicleTypeOut])
+def get_vehicle_types(db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user),
               limit : int = 5, skip : int = 0, search :Optional[str] = ""):
               
   
-    ##filter all users at the same time
-    users = db.query(models.User).filter(models.User.email.contains(search)).limit(limit).offset(skip).all()
-    return users 
+    ##filter all vehicle types at the same time
+    veh_types = db.query(models.VehicleType).filter(models.VehicleType.vehicle_type.contains(search)).limit(limit).offset(skip).all()
+    return veh_types
 ############################################################################################################################
 
 @router.get("/{id}", response_model=schemas.UserOut)
