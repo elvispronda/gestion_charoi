@@ -9,18 +9,15 @@ from ..database import  get_db
 router = APIRouter(prefix="/vehicle_transmission", tags=['Vehicle Transmission'])
 
 ############################################################################################################################
-@router.post("/",status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut) 
-def create_user(user : schemas.UserCreate, db:Session = Depends(get_db)):
+@router.post("/",status_code=status.HTTP_201_CREATED, response_model=schemas.VehicleTransmissionOut) 
+def create_veh_transmission(veh_transmission : schemas.VehicleTransmissionCreate, db:Session = Depends(get_db)):
+
     
-    # Hash the password   _ user.password
-    hashed_password = utils.hash(user.password)
-    user.password = hashed_password
-    
-    new_user = models.User(**user.dict())
-    db.add(new_user)
+    new_veh_transmission = models.VehicleTransmission(**veh_transmission.dict())
+    db.add(new_veh_transmission)
     db.commit()
-    db.refresh(new_user)
-    return new_user
+    db.refresh(new_veh_transmission)
+    return new_veh_transmission
 
 ############################################################################################################################
 
