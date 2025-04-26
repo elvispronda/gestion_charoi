@@ -57,17 +57,17 @@ def delete_veh_transmission(id:int,db:Session = Depends(get_db), current_user : 
    return Response(status_code=status.HTTP_204_NO_CONTENT)
 ############################################################################################################################
 
-@router.put("/{id}", response_model=schemas.UserCreate)
-def update_user(id:int,updated_user:schemas.UserCreate,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
+@router.put("/{id}", response_model=schemas.VehicleTransmissionCreate)
+def update_veh_transmission(id:int,updated_veh_transmission:schemas.VehicleTransmissionCreate,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
     
   
-    user_query = db.query(models.User).filter(models.User.id == id)
-    user =user_query.first()
-    if user == None:
+    veh_transmission_query = db.query(models.VehicleTransmission).filter(models.VehicleTransmission.id == id)
+    veh_transmission =veh_transmission_query.first()
+    if veh_transmission == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Vehicle Transmission with id: {id} does not exist")
    
-    user_query.update(updated_user.dict(),synchronize_session = False)
+    veh_transmission_query.update(updated_veh_transmission.dict(),synchronize_session = False)
     db.commit()
-    return user_query.first()  
+    return veh_transmission_query.first()  
 ############################################################################################################################
