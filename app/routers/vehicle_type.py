@@ -31,43 +31,43 @@ def get_vehicle_types(db:Session = Depends(get_db), current_user : str = Depends
     return veh_types
 ############################################################################################################################
 
-@router.get("/{id}", response_model=schemas.UserOut)
-def get_user(id : int, db :Session = Depends(get_db),  current_user : str = Depends(oauth2.get_current_user)):
-    user = db.query(models.User).filter(models.User.id == id).first()
+@router.get("/{id}", response_model=schemas.VehicleTypeOut)
+def get_veh_type(id : int, db :Session = Depends(get_db),  current_user : str = Depends(oauth2.get_current_user)):
+    veh_type = db.query(models.VehicleType).filter(models.VehicleType.id == id).first()
     
-    if not user :
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"user with id : {id} was not found")
-    return user
+    if not veh_type :
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Vehicle Type with id : {id} was not found")
+    return veh_type
 
 #############################################################################################################################
 
 @router.delete("/{id}",status_code=status.HTTP_204_NO_CONTENT)
-def delete_user(id:int,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
+def delete_veh_type(id:int,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
    
-   user_query = db.query(models.User).filter(models.User.id == id)
-   user = user_query.first()
+   veh_type_query = db.query(models.VehicleType).filter(models.VehicleType.id == id)
+   veh_type = veh_type_query.first()
    
-   if user == None:
+   if veh_type == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"user with id: {id} does not exist")
+                            detail=f"Vehicle Type with id: {id} does not exist")
   
          
-   user_query.delete(synchronize_session = False) 
+   veh_type_query.delete(synchronize_session = False) 
    db.commit()  
    return Response(status_code=status.HTTP_204_NO_CONTENT)
 ############################################################################################################################
 
-@router.put("/{id}", response_model=schemas.UserCreate)
-def update_user(id:int,updated_user:schemas.UserCreate,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
+@router.put("/{id}", response_model=schemas.VehicleTypeCreate)
+def update_veh_type(id:int,updated_veh_type:schemas.VehicleTypeCreate,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
     
   
-    user_query = db.query(models.User).filter(models.User.id == id)
-    user =user_query.first()
-    if user == None:
+    veh_type_query = db.query(models.VehicleType).filter(models.VehicleType.id == id)
+    veh_type =veh_type_query.first()
+    if veh_type == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"user with id: {id} does not exist")
+                            detail=f"Vehicle Type with id: {id} does not exist")
    
-    user_query.update(updated_user.dict(),synchronize_session = False)
+    veh_type_query.update(updated_veh_type.dict(),synchronize_session = False)
     db.commit()
-    return user_query.first()  
+    return veh_type_query.first()  
 ############################################################################################################################
