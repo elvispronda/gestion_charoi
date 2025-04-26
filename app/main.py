@@ -4,7 +4,7 @@ from fastapi import FastAPI
 
 from . import models 
 from .database import engine
-from .routers import  user, auth,category_document,vehicle_make,category_maintenance,category_panne,document_vehicle,driver,vehicle,fuel,garage,panne,reparation,trip,fuel_type
+from .routers import  user, auth,category_document,vehicle_make,vehicle_model,category_maintenance,category_panne,document_vehicle,driver,vehicle,fuel,garage,panne,reparation,trip,fuel_type
 from .config import settings
 
 models.Base.metadata.create_all(bind = engine)
@@ -27,7 +27,7 @@ app.include_router(trip.router)
 app.include_router(fuel_type.router)
 app.include_router(vehicle.router)
 app.include_router(vehicle_make.router)
-app.include_router(auth.router)
+app.include_router(vehicle_model.router)
 app.include_router(user.router)
 app.include_router(auth.router)
 app.include_router(user.router)
