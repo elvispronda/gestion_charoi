@@ -21,38 +21,38 @@ def create_veh_transmission(veh_transmission : schemas.VehicleTransmissionCreate
 
 ############################################################################################################################
 
-@router.get("/", response_model = List[schemas.UserOut])
-def get_users(db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user),
+@router.get("/", response_model = List[schemas.VehicleTransmissionOut])
+def get_vehicles_transmission(db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user),
               limit : int = 5, skip : int = 0, search :Optional[str] = ""):
               
   
-    ##filter all users at the same time
-    users = db.query(models.User).filter(models.User.email.contains(search)).limit(limit).offset(skip).all()
-    return users 
+    ##filter all vehicles transmission at the same time
+    veh_transmission = db.query(models.VehicleTransmission).filter(models.VehicleTransmission.vehicle_transmission.contains(search)).limit(limit).offset(skip).all()
+    return veh_transmission 
 ############################################################################################################################
 
-@router.get("/{id}", response_model=schemas.UserOut)
-def get_user(id : int, db :Session = Depends(get_db),  current_user : str = Depends(oauth2.get_current_user)):
-    user = db.query(models.User).filter(models.User.id == id).first()
+@router.get("/{id}", response_model=schemas.VehicleTransmissionOut)
+def get_veh_transmission(id : int, db :Session = Depends(get_db),  current_user : str = Depends(oauth2.get_current_user)):
+    veh_transmission = db.query(models.VehicleTransmission).filter(models.VehicleTransmission.id == id).first()
     
-    if not user :
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"user with id : {id} was not found")
-    return user
+    if not veh_transmission :
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Vehicle Transmission with id : {id} was not found")
+    return veh_transmission
 
 #############################################################################################################################
 
 @router.delete("/{id}",status_code=status.HTTP_204_NO_CONTENT)
-def delete_user(id:int,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
+def delete_veh_transmission(id:int,db:Session = Depends(get_db), current_user : str = Depends(oauth2.get_current_user)):
    
-   user_query = db.query(models.User).filter(models.User.id == id)
-   user = user_query.first()
+   veh_transmission_query = db.query(models.VehicleTransmission).filter(models.VehicleTransmission.id == id)
+   veh_transmission = veh_transmission_query.first()
    
-   if user == None:
+   if veh_transmission == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"user with id: {id} does not exist")
+                            detail=f"Vehicle Transmission with id: {id} does not exist")
   
          
-   user_query.delete(synchronize_session = False) 
+   veh_transmission_query.delete(synchronize_session = False) 
    db.commit()  
    return Response(status_code=status.HTTP_204_NO_CONTENT)
 ############################################################################################################################
@@ -65,7 +65,7 @@ def update_user(id:int,updated_user:schemas.UserCreate,db:Session = Depends(get_
     user =user_query.first()
     if user == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"user with id: {id} does not exist")
+                            detail=f"Vehicle Transmission with id: {id} does not exist")
    
     user_query.update(updated_user.dict(),synchronize_session = False)
     db.commit()
