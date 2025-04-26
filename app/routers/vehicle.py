@@ -36,7 +36,7 @@ def get_vehicle(id : int, db :Session = Depends(get_db),  current_user : str = D
     vehicle = db.query(models.Vehicle).filter(models.Vehicle.id == id).first()
     
     if not vehicle :
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"user with id : {id} was not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"vehicle with id : {id} was not found")
     return vehicle
 
 #############################################################################################################################
@@ -65,7 +65,7 @@ def update_vehicle(id:int,updated_vehicle:schemas.VehicleCreate,db:Session = Dep
     vehicle =vehicle_query.first()
     if vehicle == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"user with id: {id} does not exist")
+                            detail=f"Vehicle with id: {id} does not exist")
    
     vehicle_query.update(updated_vehicle.dict(),synchronize_session = False)
     db.commit()
