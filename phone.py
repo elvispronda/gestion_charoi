@@ -1,5 +1,5 @@
 from time import time
-from numpy import number
+from 
 import phonenumbers
 from phonenumbers import timezone,geocoder,carrier
 number =input("Enter your phone number: ")
