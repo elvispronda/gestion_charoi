@@ -5,21 +5,16 @@ from . import models
 from .database import engine
 from .routers import  user, auth,category_document,vehicle_make,vehicle_model,vehicle_type,vehicle_transmission,category_maintenance,category_panne,document_vehicle,driver,vehicle,fuel,garage,panne,reparation,trip,fuel_type
 from .config import settings
-
-models.Base.metadata.create_all(bind = engine)
-
-app = FastAPI(debug=True) 
-
-
-
-
 from fastapi import FastAPI, Request, Form, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-app = FastAPI()
+models.Base.metadata.create_all(bind = engine)
+
+app = FastAPI(debug=True) 
+
 
 # CORS setup (for frontend on a different port)
 app.add_middleware(
