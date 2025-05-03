@@ -1,7 +1,6 @@
 #HERE WE USE FASTAPI WITH SQLALCHEMY :USING ORM
 
 from fastapi import FastAPI
-
 from . import models 
 from .database import engine
 from .routers import  user, auth,category_document,vehicle_make,vehicle_model,vehicle_type,vehicle_transmission,category_maintenance,category_panne,document_vehicle,driver,vehicle,fuel,garage,panne,reparation,trip,fuel_type
@@ -9,7 +8,29 @@ from .config import settings
 
 models.Base.metadata.create_all(bind = engine)
 
-app = FastAPI(debug=True)        
+app = FastAPI(debug=True) 
+
+
+
+
+from fastapi import FastAPI, Request, Form, HTTPException
+from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+
+app = FastAPI()
+
+# CORS setup (for frontend on a different port)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Replace "*" with frontend URL in production
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Serve static HTML/JS/CSS
+app.mount("/", StaticFiles(directory="frontend", html=True), name="static")
 
     
 app.include_router(user.router)
