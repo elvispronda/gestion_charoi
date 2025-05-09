@@ -16,20 +16,20 @@ models.Base.metadata.create_all(bind = engine)
 app = FastAPI(debug=True) 
 
 
-# CORS setup (for frontend on a different port)
+""" # CORS setup
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Replace "*" with frontend URL in production
+    allow_origins=["*"],  # Replace "*" with specific frontend URL in production
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Serve static HTML/JS/CSS
-app.mount("/", StaticFiles(directory="frontend", html=True), name="static")
+# Mount static files at a non-root path
+app.mount("/static", StaticFiles(directory="frontend", html=True), name="static") """
 
-    
+# Include your routers
+app.include_router(auth.router)  
 app.include_router(user.router)
-app.include_router(auth.router)
 app.include_router(category_document.router)
 app.include_router(category_maintenance.router)
 app.include_router(category_panne.router)
