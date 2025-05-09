@@ -2,37 +2,150 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login</title>
+  <title>Countries Table with Search and Pagination</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+<body class="bg-gray-100 p-6">
 
-  <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-    <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
-    
-    <form id="login-form" class="space-y-5">
-      <div>
-        <label for="username" class="block mb-1 text-sm font-medium text-gray-700">Username</label>
-        <input type="text" id="username" name="username" required 
-               class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"/>
-      </div>
+  <div class="container mx-auto">
+    <h1 class="text-2xl font-bold mb-4 text-center">List of Countries</h1>
 
-      <div>
-        <label for="password" class="block mb-1 text-sm font-medium text-gray-700">Password</label>
-        <input type="password" id="password" name="password" required 
-               class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"/>
-      </div>
+    <!-- 🔍 Search Bar -->
+    <div class="mb-4 flex justify-center">
+      <input
+        type="text"
+        id="search-input"
+        placeholder="Search by country name, capital, or language..."
+        class="w-full md:w-1/2 p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </div>
 
-      <button type="submit" 
-              class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition">
-        Sign In
-      </button>
+    <!-- 🌍 Table -->
+    <div class="overflow-x-auto mb-4">
+      <table class="min-w-full border border-gray-300 bg-white shadow-md rounded-lg overflow-hidden">
+        <thead class="bg-gray-200 text-gray-700 uppercase text-sm leading-normal">
+          <tr>
+            <th class="py-3 px-4 text-left">Name</th>
+            <th class="py-3 px-4 text-left">Flag</th>
+            <th class="py-3 px-4 text-left">Population (M)</th>
+            <th class="py-3 px-4 text-left">Area (Km²)</th>
+            <th class="py-3 px-4 text-left">Calling Code</th>
+            <th class="py-3 px-4 text-left">Capital</th>
+            <th class="py-3 px-4 text-left">Languages</th>
+          </tr>
+        </thead>
+        <tbody id="countries-table-body" class="text-gray-600 text-sm font-light">
+          <!-- Dynamic rows go here -->
+        </tbody>
+      </table>
+    </div>
 
-      <p id="message" class="text-center text-sm mt-2 text-red-600 hidden"></p>
-    </form>
+    <!-- 📄 Pagination Controls -->
+    <div class="flex justify-center items-center space-x-2" id="pagination-controls"></div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    let countriesCache = [];
+    let filteredCountries = [];
+    let currentPage = 1;
+    const rowsPerPage = 10;
+
+    async function getData() {
+      const response = await fetch("https://restcountries.com/v2/all");
+      const countriesData = await response.json();
+      countriesCache = countriesData;
+      filteredCountries = countriesData;
+      return countriesData;
+    }
+
+    function paginateData(data, page, rowsPerPage) {
+      const start = (page - 1) * rowsPerPage;
+      const end = start + rowsPerPage;
+      return data.slice(start, end);
+    }
+
+    function renderPaginationControls(totalItems, rowsPerPage, currentPage) {
+      const totalPages = Math.ceil(totalItems / rowsPerPage);
+      const container = document.getElementById("pagination-controls");
+      container.innerHTML = "";
+
+      for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement("button");
+        btn.textContent = i;
+        btn.className = `px-3 py-1 border rounded ${
+          i === currentPage ? "bg-blue-500 text-white" : "bg-white hover:bg-gray-100"
+        }`;
+        btn.addEventListener("click", () => {
+          currentPage = i;
+          renderTable(filteredCountries);
+        });
+        container.appendChild(btn);
+      }
+    }
+
+    function renderTable(data) {
+      const tableBody = document.getElementById("countries-table-body");
+      tableBody.innerHTML = "";
+
+      const pageData = paginateData(data, currentPage, rowsPerPage);
+      pageData.forEach(country => {
+        const row = document.createElement("tr");
+        row.classList.add("border-b", "border-gray-200", "hover:bg-gray-100");
+
+        const createCell = (text) => {
+          const td = document.createElement("td");
+          td.className = "py-3 px-4";
+          td.textContent = text;
+          return td;
+        };
+
+        row.appendChild(createCell(country.name));
+
+        const flagCell = document.createElement("td");
+        flagCell.className = "py-3 px-4";
+        const flagImg = document.createElement("img");
+        flagImg.src = country.flag;
+        flagImg.alt = `${country.name} flag`;
+        flagImg.className = "w-10 h-6 object-cover rounded";
+        flagCell.appendChild(flagImg);
+        row.appendChild(flagCell);
+
+        row.appendChild(createCell((country.population / 1_000_000).toFixed(2)));
+        row.appendChild(createCell(country.area ? (country.area / 1_000).toFixed(2) : "N/A"));
+        row.appendChild(createCell(country.callingCodes?.[0] ? "+" + country.callingCodes[0] : "N/A"));
+        row.appendChild(createCell(country.capital || "N/A"));
+        row.appendChild(createCell(country.languages.map(lang => lang.name).join(", ") || "N/A"));
+
+        tableBody.appendChild(row);
+      });
+
+      renderPaginationControls(data.length, rowsPerPage, currentPage);
+    }
+
+    // 🔍 Filter and render
+    function handleSearch(query) {
+      currentPage = 1;
+      filteredCountries = countriesCache.filter(country => {
+        const name = country.name?.toLowerCase() || "";
+        const capital = country.capital?.toLowerCase() || "";
+        const languages = country.languages?.map(l => l.name.toLowerCase()).join(" ") || "";
+        return name.includes(query) || capital.includes(query) || languages.includes(query);
+      });
+      renderTable(filteredCountries);
+    }
+
+    document.getElementById("search-input").addEventListener("input", (event) => {
+      const query = event.target.value.toLowerCase();
+      handleSearch(query);
+    });
+
+    async function initializeTable() {
+      await getData();
+      renderTable(filteredCountries);
+    }
+
+    initializeTable();
+  </script>
+
 </body>
 </html>

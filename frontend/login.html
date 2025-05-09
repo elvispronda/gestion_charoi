@@ -63,7 +63,7 @@
 
         // Handle successful login (store token, redirect, etc.)
         // localStorage.setItem("token", data.access_token);
-        // window.location.href = "/dashboard.html";
+        window.location.href = "/dashboard.html";
       } catch (err) {
         messageEl.textContent = "Server error. Please try again.";
         messageEl.classList.remove("hidden");
