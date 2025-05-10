@@ -1,11 +1,13 @@
 #HERE WE USE FASTAPI WITH SQLALCHEMY :USING ORM
 
-from fastapi import FastAPI
+from fastapi import FastAPI,Request,HTTPException
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from . import models 
 from .database import engine
 from .routers import  user, auth,category_document,vehicle_make,vehicle_model,vehicle_type,vehicle_transmission,category_maintenance,category_panne,document_vehicle,driver,vehicle,fuel,garage,panne,reparation,trip,fuel_type
 from .config import settings
-from fastapi import FastAPI, Request, Form, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
@@ -16,16 +18,16 @@ models.Base.metadata.create_all(bind = engine)
 app = FastAPI(debug=True) 
 
 
-""" # CORS setup
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Replace "*" with specific frontend URL in production
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# Mount static files
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
-# Mount static files at a non-root path
-app.mount("/static", StaticFiles(directory="frontend", html=True), name="static") """
+# Template configuration
+templates = Jinja2Templates(directory="app/templates")
+
+@app.get("/", response_class=HTMLResponse)
+async def read_index(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
 
 # Include your routers
 app.include_router(auth.router)  
