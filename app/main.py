@@ -1,5 +1,5 @@
 #HERE WE USE FASTAPI WITH SQLALCHEMY :USING ORM
-
+import os
 from fastapi import FastAPI,Request,HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
@@ -12,21 +12,25 @@ from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-
 models.Base.metadata.create_all(bind = engine)
 
 app = FastAPI(debug=True) 
 
 
-# Mount static files
-app.mount("/static", StaticFiles(directory="app/static"), name="static")
+# Serve static files
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# Template configuration
-templates = Jinja2Templates(directory="app/templates")
+# Set up template directory (ensure the path is correct)
+templates = Jinja2Templates(directory="templates")
 
-@app.get("/", response_class=HTMLResponse)
-async def read_index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+# Dynamic route for any HTML page
+@app.get("/{page_name}", response_class=HTMLResponse)
+async def serve_page(request: Request, page_name: str):
+    template_path = f"templates/{page_name}.html"
+    if os.path.exists(template_path):
+        return templates.TemplateResponse(f"{page_name}.html", {"request": request})
+    raise HTTPException(status_code=404, detail="Page not found")
+
 
 
 # Include your routers
