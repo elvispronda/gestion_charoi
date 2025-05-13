@@ -3,7 +3,7 @@ from typing import Optional, Union
 from datetime import datetime
 
 ###################################################################################################################
-""" class UserBase(BaseModel):
+class UserBase(BaseModel):
     username: str
     full_name: str
     email: EmailStr
@@ -29,9 +29,9 @@ class Token(BaseModel):
     token_type: str
 
 class TokenData(BaseModel):
-    id: Union[str, int] """
+    id: Union[str, int] 
 
-# Base user model without ID or timestamps
+""" # Base user model without ID or timestamps
 class UserBase(BaseModel):
     username: str
     full_name: str
@@ -62,7 +62,7 @@ class Token(BaseModel):
 
 # Token data model
 class TokenData(BaseModel):
-    id: Union[str, int]
+    id: Union[str, int] """
 ###################################################################################################################
 
 class DriverBase(BaseModel):

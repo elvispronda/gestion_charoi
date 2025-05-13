@@ -18,6 +18,9 @@ def login(user_credentials : OAuth2PasswordRequestForm = Depends(), db:Session =
     return {"access_token": access_token, "token_type" : "bearer"}
 
 
+#There is a difference when using form data or json format
+
+
 
 
 
