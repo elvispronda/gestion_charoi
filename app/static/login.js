@@ -9,20 +9,29 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
     try {
         const response = await fetch("http://localhost:8000/login", {
             method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            headers: { 
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Accept": "application/json"  // Ensure JSON response
+            },
             body: new URLSearchParams({ username, password })
         });
 
         if (!response.ok) {
             const error = await response.json();
-            console.log("Error Details (Parsed):", JSON.stringify(error));  // Properly log the error
-            messageEl.textContent = error.detail || "Login failed.";
+            console.log("Error Details (Parsed):", JSON.stringify(error));  // Properly log the error object
+
+            // Handle error and display the message
+            if (error.detail) {
+                messageEl.textContent = `Error: ${error.detail}`;
+            } else {
+                messageEl.textContent = `Unexpected error occurred during login.`;
+            }
             messageEl.classList.remove("hidden");
             return;
         }
 
         const data = await response.json();
-        console.log("Login Successful, Response Data:", JSON.stringify(data));  // Log the response properly
+        console.log("Login Successful, Response Data:", JSON.stringify(data));  // Properly log the success response
 
         // Save the token to local storage
         localStorage.setItem("access_token", data.access_token);
@@ -43,3 +52,5 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
         messageEl.classList.remove("hidden");
     }
 });
+
+

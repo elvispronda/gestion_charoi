@@ -16,6 +16,21 @@ models.Base.metadata.create_all(bind = engine)
 
 app = FastAPI(debug=True) 
 
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+
+# Configure CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Adjust to specific domains in production
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all methods (including OPTIONS)
+    allow_headers=["*"],  # Allow all headers
+)
+
+
 # Serve static files
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
