@@ -16,17 +16,14 @@ models.Base.metadata.create_all(bind = engine)
 
 app = FastAPI(debug=True) 
 
-
-# Serve static files
-app.mount("/static", StaticFiles(directory="static"), name="static")
-
 # Set up template directory (ensure the path is correct)
 templates = Jinja2Templates(directory="templates")
 
-# Dynamic route for any HTML page
 @app.get("/{page_name}", response_class=HTMLResponse)
 async def serve_page(request: Request, page_name: str):
-    template_path = f"templates/{page_name}.html"
+    # Construct the correct file path based on your actual project structure
+    template_path = os.path.join("templates", f"{page_name}.html")
+    print(f"Looking for template at: {template_path}")  # Debugging statement
     if os.path.exists(template_path):
         return templates.TemplateResponse(f"{page_name}.html", {"request": request})
     raise HTTPException(status_code=404, detail="Page not found")
