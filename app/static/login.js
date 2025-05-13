@@ -15,14 +15,14 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
 
         if (!response.ok) {
             const error = await response.json();
-            console.log("Error Details (Parsed):", JSON.stringify(error));  // Properly log the error
+            console.log("Error Details (Parsed):", JSON.stringify(error, null, 2));  // Stringify the error for better readability
             messageEl.textContent = error.detail || "Login failed.";
             messageEl.classList.remove("hidden");
             return;
         }
 
         const data = await response.json();
-        console.log("Login Successful, Response Data:", JSON.stringify(data));  // Log the response properly
+        console.log("Login Successful, Response Data:", JSON.stringify(data, null, 2));  // Log the response properly
 
         // Save the token to local storage
         localStorage.setItem("access_token", data.access_token);
@@ -38,11 +38,12 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
         }, 1000);
 
     } catch (err) {
-        console.error("Login Error (Catch Block):", err);  // Catch any unexpected errors
+        console.error("Login Error (Catch Block):", JSON.stringify(err, null, 2));  // Stringify any caught errors
         messageEl.textContent = "Server error. Please try again.";
         messageEl.classList.remove("hidden");
     }
 });
+
 
 
 
