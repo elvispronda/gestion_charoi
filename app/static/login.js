@@ -13,22 +13,24 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
                 "Content-Type": "application/json"  // Set the content type to JSON
             },
             body: JSON.stringify({
-                email: username,  // Assuming you want to use email as the "username"
+                email: username,  // Assuming email is used as the username
                 password: password
             })
         });
 
         if (!response.ok) {
             const error = await response.json();
-            console.log("Error Details (Parsed):", JSON.stringify(error, null, 2));  // Log the error details
-            messageEl.textContent = error.detail || "Login failed.";
+            // Log the error in JSON format to check the details
+            console.log("Error Details (Parsed):", JSON.stringify(error, null, 2));  
+            messageEl.textContent = error.detail || "Login failed.";  // Display error message
             messageEl.classList.remove("hidden");
             return;
         }
 
         const data = await response.json();
-        console.log("Login Successful, Response Data:", JSON.stringify(data, null, 2));  // Log the response properly
-
+        // Log the response properly to check the response object
+        console.log("Login Successful, Response Data:", JSON.stringify(data, null, 2));  
+        
         // Save the token to local storage
         localStorage.setItem("access_token", data.access_token);
         localStorage.setItem("token_type", data.token_type);
@@ -43,7 +45,8 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
         }, 1000);
 
     } catch (err) {
-        console.error("Login Error (Catch Block):", JSON.stringify(err, null, 2));  // Log any unexpected errors
+        // Log the error properly to inspect what went wrong in the catch block
+        console.error("Login Error (Catch Block):", JSON.stringify(err, null, 2));  
         messageEl.textContent = "Server error. Please try again.";
         messageEl.classList.remove("hidden");
     }
