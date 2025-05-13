@@ -3,7 +3,7 @@ from typing import Optional, Union
 from datetime import datetime
 
 ###################################################################################################################
-class UserBase(BaseModel):
+""" class UserBase(BaseModel):
     username: str
     full_name: str
     email: EmailStr
@@ -28,6 +28,39 @@ class Token(BaseModel):
     access_token: str
     token_type: str
 
+class TokenData(BaseModel):
+    id: Union[str, int] """
+
+# Base user model without ID or timestamps
+class UserBase(BaseModel):
+    username: str
+    full_name: str
+    email: EmailStr
+    role: str
+
+# Output model, excluding password for safety
+class UserOut(UserBase):
+    id: int
+    created_at: datetime
+
+    class Config:
+        from_attributes = True  # Used to correctly map SQLAlchemy model attributes
+
+# Input model for user creation (includes password)
+class UserCreate(UserBase):
+    password: str
+
+# Login model
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str
+
+# Token model for authentication response
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+# Token data model
 class TokenData(BaseModel):
     id: Union[str, int]
 ###################################################################################################################
